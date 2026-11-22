@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепты сайтов — портфолио</title>
+<meta name="description" content="Четыре концепта сайтов: лендинг сервиса, интернет-магазин, панель аналитики, сайт студии красоты.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--bg:#F5F5F3;--ink:#1B1C1F;--muted:#62656C;--line:#DADBD7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Onest,system-ui,sans-serif}
+.wrap{width:min(1100px,100% - 32px);margin:auto;padding:72px 0 48px}
+h1{font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-.04em;margin:0 0 16px;font-weight:800;max-width:720px}
+.lead{color:var(--muted);max-width:620px;margin:0 0 56px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+a.card{color:inherit;text-decoration:none;display:block}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;display:block;margin-bottom:14px;background:#e8e8e4}
+.card h2{font-size:22px;margin:0 0 4px;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card:hover h2{text-decoration:underline}
+.card:focus-visible{outline:3px solid var(--ink);outline-offset:6px;border-radius:16px}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding-top:48px}}
+</style>
+</head>
+<body>
+<main class="wrap" id="work">
+ <h1>Концепты сайтов</h1>
+ <p class="lead">Учебные проекты: дизайн, адаптивная вёрстка и интерактив на чистых HTML, CSS и JavaScript. Компании и данные вымышленные.</p>
+ <div class="grid">
+  <a class="card" href="projects/p1/index.html"><img src="projects/p1/cover.jpg" alt="Лендинг Flowly с канбан-доской" width="800" height="800"><h2>Flowly — лендинг сервиса задач</h2><p>Живая канбан-доска с перетаскиванием, тарифы с переключателем периода, FAQ, форма регистрации.</p></a>
+  <a class="card" href="projects/p2/index.html"><img src="projects/p2/cover.jpg" alt="Магазин Nordic Home" width="800" height="800" loading="lazy"><h2>Nordic Home — интернет-магазин</h2><p>Каталог с фильтром и сортировкой, карточка товара, корзина, оформление заказа с проверкой полей.</p></a>
+  <a class="card" href="projects/p3/index.html"><img src="projects/p3/cover.jpg" alt="Панель аналитики Pulse" width="800" height="800" loading="lazy"><h2>Pulse — панель аналитики</h2><p>Показатели за три периода, интерактивный график, таблица клиентов с поиском и сортировкой.</p></a>
+  <a class="card" href="projects/p4/index.html"><img src="projects/p4/cover.jpg" alt="Сайт студии красоты Studio Rosa" width="800" height="800" loading="lazy"><h2>Studio Rosa — студия красоты</h2><p>Прайс по категориям, мастера, онлайн-запись в четыре шага с выбором дня и времени.</p></a>
+ </div>
+ <footer>Концепты для портфолио. Фото в Studio Rosa и Nordic Home сгенерированы нейросетью.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Rosa — студия красоты (концепт)</title>
+<meta name="description" content="Концепт сайта студии красоты: прайс по категориям, мастера, работы, онлайн-запись по шагам.">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+:root{--milk:#FFFBFA;--blush:#F6E6EA;--plum:#3A1230;--rose:#B23A62;--sage:#7E9A8B;--muted:#4A3443;--label:#6E5764;--line:#E9D3DA}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--milk);color:var(--plum);font:400 17px/1.65 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}img{display:block;max-width:100%}
+.wrap{width:min(1180px,100% - 32px);margin:auto}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;position:relative;z-index:2}
+.demo :focus-visible,.booking :focus-visible:not(.panel *){outline-color:#fff}
+.demo{background:var(--plum);color:#E8CFDA;font-size:13px;padding:8px 16px;display:flex;justify-content:space-between;gap:12px}
+.demo a{text-decoration:none}.demo a:hover{color:#fff}
+
+header{display:flex;align-items:center;justify-content:space-between;height:84px;position:relative;z-index:5}
+.logo{font:500 30px/1 Cormorant,serif;text-decoration:none;letter-spacing:.01em}
+.logo span{font-style:italic}
+nav.menu{display:flex;gap:34px;font-size:15px;align-items:center}
+nav.menu a{text-decoration:none;color:var(--muted)}nav.menu a:hover{color:var(--plum)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 30px;border-radius:99px;background:var(--plum);color:#fff;font:500 16px Onest,sans-serif;border:0;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:var(--rose);transform:translateY(-1px)}.btn:active{transform:translateY(1px) scale(.98)}
+.btn.out{background:none;color:var(--plum);box-shadow:inset 0 0 0 1.5px var(--plum)}.btn.out:hover{background:var(--plum);color:#fff}
+.btn:disabled{opacity:.35;cursor:not-allowed;background:var(--plum)}
+.burger{display:none;border:0;background:none;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:1.5px;background:var(--plum);margin:6px auto}
+
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:end;padding:24px 0 96px}
+.hero h1{font:400 clamp(54px,8.4vw,122px)/.92 Cormorant,serif;letter-spacing:-.025em;margin:0 0 30px}
+.hero p{font-size:19px;color:var(--muted);max-width:440px;margin:0 0 34px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:flex;gap:40px;margin-top:52px;padding-top:26px;border-top:1px solid var(--line)}
+.facts b{font:500 40px/1 Cormorant,serif;display:block}.facts span{font-size:14px;color:var(--muted)}
+.arch{aspect-ratio:4/5;border-radius:999px 999px 18px 18px;overflow:hidden;background:linear-gradient(170deg,#F3D3DD,#C98AA0 55%,#7E9A8B);position:relative}
+.arch img{width:100%;height:100%;object-fit:cover}
+.arch .chip{position:absolute;left:18px;bottom:18px;background:var(--milk);border-radius:14px;padding:12px 16px;font-size:14px;line-height:1.35;box-shadow:0 12px 30px -16px rgba(58,18,48,.5)}
+.chip b{display:block;font-size:15px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3E9B6B;margin-right:6px}
+
+section{padding:96px 0}
+h2{font:400 clamp(40px,5.2vw,72px)/1 Cormorant,serif;letter-spacing:-.02em;margin:0 0 18px}
+.sub{color:var(--muted);max-width:520px;margin:0 0 44px}
+
+.prices{background:var(--blush)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:36px}
+.tabs button{border:0;background:none;font:500 15px Onest,sans-serif;color:var(--muted);padding:10px 18px;border-radius:99px;cursor:pointer;box-shadow:inset 0 0 0 1px #DDBFCA}
+.tabs button[aria-selected=true]{background:var(--plum);color:#fff;box-shadow:none}
+.plist{display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
+.pi{display:flex;align-items:baseline;gap:10px;padding:18px 0;border-bottom:1px solid #E5C9D2}
+.pi .n{font:500 24px/1.2 Cormorant,serif}
+.pi small{display:block;font-size:14px;color:var(--muted)}
+.pi .lead{flex:1;border-bottom:1px dotted #C9A9B6;transform:translateY(-6px);min-width:20px}
+.pi .p{white-space:nowrap;font-weight:500}
+.pi button{border:0;background:none;color:var(--rose);font:500 14px Onest,sans-serif;cursor:pointer;padding:4px 0 4px 10px;white-space:nowrap}
+.pi button:hover{text-decoration:underline}
+
+.masters{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.m .ph{aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#EBC9D4,#9E6B80);margin-bottom:16px}
+.m .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.m:hover .ph img{transform:scale(1.03)}
+.m h3{font:500 30px/1.1 Cormorant,serif;margin:0}
+.m p{margin:4px 0 12px;color:var(--muted);font-size:15px}
+.m .tags{display:flex;gap:6px;flex-wrap:wrap}
+.m .tags span{font-size:13px;padding:4px 12px;border-radius:99px;background:var(--blush)}
+
+.works{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px;align-items:stretch}
+.works figure{margin:0;border-radius:18px;overflow:hidden;aspect-ratio:1;background:linear-gradient(140deg,#E7B98F,#8A5A3C)}
+.works figure:nth-child(2){background:linear-gradient(140deg,#5B4950,#1F1418)}
+.works img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.works figure:hover img{transform:scale(1.03)}
+.review{background:var(--plum);color:#fff;border-radius:18px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.rv{font:400 clamp(30px,3.4vw,44px)/1.1 Cormorant,serif;margin:0}
+.visit{margin:0;padding-left:22px;display:grid;gap:10px;color:#F3E3EA}
+.review .btn:hover{background:var(--blush)!important}
+
+.booking{background:var(--plum);color:#fff}
+.booking h2{color:#fff}.booking .sub{color:#D9BCC9}
+.bk{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:s}
+.steps li{counter-increment:s;padding:12px 0;color:#C7A5B6;display:flex;gap:14px;align-items:center;font-size:15px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px #8A5C7A;font-size:14px;flex:none}
+.steps li.on{color:#fff}.steps li.on::before{background:#fff;color:var(--plum);box-shadow:none}
+.steps li.ok::before{content:"✓";background:var(--rose);box-shadow:none;color:#fff}
+.steps li small{display:block;color:#C9A6B7;font-size:13px}
+.panel{background:var(--milk);color:var(--plum);border-radius:22px;padding:32px;min-height:400px;display:flex;flex-direction:column}
+.panel h3{font:500 32px/1.1 Cormorant,serif;margin:0 0 20px;outline:none}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opt{border:0;text-align:left;background:#fff;box-shadow:inset 0 0 0 1px var(--line);border-radius:14px;padding:14px 16px;font:400 15px/1.4 Onest,sans-serif;color:var(--plum);cursor:pointer}
+.opt b{display:block;font-weight:600}.opt small{color:var(--muted)}
+.opt:hover{box-shadow:inset 0 0 0 1.5px var(--rose)}
+.opt[aria-pressed=true]{background:var(--blush);box-shadow:inset 0 0 0 2px var(--plum)}
+.days{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin-bottom:16px}
+.day{flex:none;width:68px;padding:10px 0;text-align:center}
+.day b{font-size:20px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.slot{padding:10px 0;text-align:center}
+.slot:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields label{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.fields .full{grid-column:1/-1}
+input,textarea{font:400 16px Onest,sans-serif;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--plum);width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--plum)}
+input[aria-invalid=true]{border-color:#C0392B}
+.err{color:#B42318;font-size:13px;min-height:1em}
+.consent{display:flex!important;gap:10px;align-items:flex-start;font-size:13px}
+.consent input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--plum)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:28px}
+.back{border:0;background:none;color:var(--muted);font:500 15px Onest,sans-serif;cursor:pointer;padding:8px 0}
+.back:hover{color:var(--plum)}
+.ticket{border:1.5px dashed #DDBFCA;border-radius:18px;padding:28px;display:grid;gap:10px}
+.ticket div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.ticket div span{color:var(--muted)}
+.ticket p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+
+.contacts{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center}
+.contacts dl{display:grid;grid-template-columns:auto 1fr;gap:12px 28px;margin:0 0 32px}
+.contacts dt{color:var(--muted)}.contacts dd{margin:0}
+.map{border-radius:22px;overflow:hidden;background:#EFE6E2;aspect-ratio:16/11}
+.map svg{width:100%;height:100%;display:block}
+
+footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer a{text-decoration:none}
+
+@media (max-width:980px){
+ .hero,.bk,.contacts{grid-template-columns:1fr}
+ .hero{padding-bottom:64px}.arch{max-width:460px}
+ .plist{grid-template-columns:1fr}
+ .works{grid-template-columns:1fr 1fr}.review{grid-column:1/-1}
+ .steps{grid-template-columns:repeat(4,1fr)}.steps li{flex-direction:column;align-items:flex-start;gap:6px;font-size:13px}.steps li small{display:none}
+}
+@media (max-width:720px){
+ .burger{display:block}
+ nav.menu{display:none;position:absolute;top:84px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--milk);padding:8px 0 20px;border-bottom:1px solid var(--line)}
+ nav.menu.open{display:flex}nav.menu a{padding:12px 0;font-size:18px}
+ .masters{grid-template-columns:1fr;max-width:420px}
+ .works{grid-template-columns:1fr}
+ .fields{grid-template-columns:1fr}
+ .panel{padding:22px}
+ section{padding:72px 0}
+ .facts{gap:24px}
+ .pi{flex-wrap:wrap}.pi .lead{display:none}.pi > span:first-child{flex-basis:100%}
+}
+.arch img{animation:open 1.1s cubic-bezier(.2,.7,.2,1) both}
+.hero h1{animation:up .8s cubic-bezier(.2,.7,.2,1) both .15s}
+@keyframes open{from{transform:scale(1.08);opacity:.2}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){.arch img,.hero h1{animation:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="demo"><span>Концепт из портфолио, не реальная студия</span><a href="../../index.html#work">← К портфолио</a></div>
+
+<div class="wrap" id="top">
+<header>
+ <a class="logo" href="#top">Studio <span>Rosa</span></a>
+ <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+ <nav class="menu" id="menu"><a href="#prices">Услуги и цены</a><a href="#team">Мастера</a><a href="#contacts">Контакты</a><a class="btn" href="#booking" style="color:#fff;padding:11px 22px">Записаться</a></nav>
+</header>
+
+<div class="hero">
+ <div>
+  <h1>Стрижки и окрашивание без спешки</h1>
+  <p>Небольшая студия в центре города. Три мастера, у каждого клиента своё время, никто не ждёт в коридоре.</p>
+  <div class="row"><a class="btn" href="#booking">Записаться онлайн</a><a class="btn out" href="#prices">Посмотреть цены</a></div>
+  <div class="facts"><div><b data-assumed>10–21</b><span>ежедневно, без выходных</span></div><div><b>0 ₽</b><span>консультация перед окрашиванием</span></div></div>
+ </div>
+ <div class="arch">
+  <img src="img/hero.jpg" alt="Светлый зал студии с креслом мастера и зеркалом" width="800" height="1000" onerror="this.remove()">
+ </div>
+</div>
+</div>
+
+<section class="prices" id="prices"><div class="wrap">
+ <h2>Услуги и цены</h2>
+ <p class="sub">Цена зависит от длины волос и опыта мастера. Точную стоимость назовём на бесплатной консультации.</p>
+ <div class="tabs" role="tablist" aria-label="Категории услуг" id="tabs"></div>
+ <div class="plist" id="plist" role="tabpanel"></div>
+</div></section>
+
+<section id="team"><div class="wrap">
+ <h2>Мастера</h2>
+ <p class="sub">Записаться можно к конкретному мастеру или к любому свободному.</p>
+ <div class="masters" id="masters"></div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <h2>Работы</h2>
+ <p class="sub">Балаяж, тонирование и стрижки. Перед окрашиванием мастер показывает оттенок при дневном свете.</p>
+ <div class="works">
+  <figure><img src="img/work-1.jpg" alt="Окрашивание в технике балаяж, медово-карамельные оттенки" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <figure><img src="img/work-2.jpg" alt="Короткая стрижка боб на тёмных волосах" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <div class="review"><h3 class="rv">Как проходит окрашивание</h3><ol class="visit"><li>Смотрим волосы и фото, которые вы принесли.</li><li>Подбираем оттенок на пряди у окна.</li><li>Называем точную цену до начала работы.</li><li>Даём домашний уход на месяц вперёд.</li></ol><a class="btn" href="#booking" style="background:#fff;color:var(--plum);align-self:start">Записаться к колористу</a></div>
+ </div>
+</div></section>
+
+<section class="booking" id="booking"><div class="wrap">
+ <h2>Онлайн-запись</h2>
+ <p class="sub">Четыре шага: услуга, мастер, время и контакты. Подтвердим запись сообщением за день до визита.</p>
+ <div class="bk">
+  <ol class="steps" id="steps">
+   <li><span>Услуга<small id="s0">не выбрана</small></span></li>
+   <li><span>Мастер<small id="s1">не выбран</small></span></li>
+   <li><span>Дата и время<small id="s2">не выбраны</small></span></li>
+   <li><span>Контакты<small>&nbsp;</small></span></li>
+  </ol>
+  <div class="panel" id="panel" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="contacts"><div class="wrap contacts">
+ <div>
+  <h2>Как нас найти</h2>
+  <dl>
+   <dt>Адрес</dt><dd>Садовая улица, вход со двора</dd>
+   <dt>Часы</dt><dd>Ежедневно с 10:00 до 21:00</dd>
+   <dt>Метро</dt><dd>5 минут пешком от станции «Центральная»</dd>
+  </dl>
+  <a class="btn" href="#booking">Записаться</a>
+ </div>
+ <div class="map">
+  <svg viewBox="0 0 640 440" role="img" aria-label="Схема: студия во дворе дома на Садовой улице, в 5 минутах от метро">
+   <rect width="640" height="440" fill="#EFE6E2"/>
+   <g fill="#E3D6D1"><rect x="30" y="30" width="170" height="120" rx="6"/><rect x="240" y="30" width="150" height="120" rx="6"/><rect x="430" y="30" width="180" height="120" rx="6"/><rect x="30" y="200" width="170" height="210" rx="6"/><rect x="430" y="200" width="180" height="210" rx="6"/></g>
+   <rect x="240" y="200" width="150" height="210" rx="6" fill="#D9C2CA"/>
+   <g stroke="#fff" stroke-width="26" stroke-linecap="round"><path d="M0 175H640"/><path d="M215 0V440"/><path d="M415 0V440"/></g>
+   <path d="M90 175 Q 160 175 215 230 L 300 300" fill="none" stroke="#B23A62" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/>
+   <circle cx="90" cy="175" r="16" fill="#3A1230"/><text x="90" y="181" fill="#fff" font-family="Onest" font-size="15" font-weight="700" text-anchor="middle">М</text>
+   <circle cx="315" cy="305" r="22" fill="#B23A62"/><circle cx="315" cy="305" r="8" fill="#fff"/>
+   <text x="315" y="355" fill="#3A1230" font-family="Cormorant" font-size="24" font-style="italic" text-anchor="middle">Studio Rosa</text>
+   <text x="600" y="168" fill="#8C7680" font-family="Onest" font-size="13" text-anchor="end">ул. Садовая</text>
+  </svg>
+ </div>
+</div></section>
+
+<div class="wrap"><footer><span>© 2026 Studio Rosa, концепт сайта. Фото сгенерированы нейросетью.</span><a href="#top">Наверх</a></footer></div>
+
+<script>
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}});
+
+const fmt=v=>'от '+v.toLocaleString('ru-RU')+' ₽';
+const services={
+ 'Стрижки':[['Женская стрижка','консультация и мытьё включены',2200,60],['Мужская стрижка','машинка и ножницы',1600,45],['Детская стрижка','до 12 лет',1200,40],['Чёлка','между визитами',600,20]],
+ 'Окрашивание':[['Тонирование','освежить цвет, блеск',3800,90],['Балаяж','мягкие переходы',7500,180],['Окрашивание корней','до 3 см',3200,90],['Сложное окрашивание','с консультацией колориста',9000,240]],
+ 'Уход':[['Восстановление','для повреждённых волос',2800,60],['Кератин','гладкость до 3 месяцев',6500,150],['Уход для кожи головы','пилинг и маска',1900,45]],
+ 'Укладки':[['Укладка','фен, брашинг',1500,40],['Вечерняя причёска','с примеркой',3500,75],['Локоны','плойка или утюжок',1800,45]]};
+const masters=[
+ ['Алина','стилист-парикмахер, 9 лет опыта',['Стрижки','Укладки','Уход'],'img/master-1.jpg','Портрет мастера Алины'],
+ ['Артём','барбер и мужской стилист, 7 лет',['Стрижки','Укладки'],'img/master-2.jpg','Портрет мастера Артёма'],
+ ['Вера','колорист, 15 лет опыта',['Окрашивание','Уход'],'img/master-3.jpg','Портрет мастера Веры']];
+
+// Прайс с вкладками
+const tabs=document.getElementById('tabs'),plist=document.getElementById('plist');
+Object.keys(services).forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.textContent=c;b.setAttribute('aria-selected',i===0);b.onclick=()=>showCat(c);tabs.append(b)});
+function showCat(c){tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.textContent===c));
+ plist.innerHTML=services[c].map(s=>`<div class="pi"><span><span class="n">${s[0]}</span><small>${s[1]}, ${s[3]} мин</small></span><span class="lead"></span><span class="p">${fmt(s[2])}</span><button type="button" data-s="${s[0]}">Записаться</button></div>`).join('')}
+showCat('Стрижки');
+plist.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;Object.assign(st,{service:find(b.dataset.s),master:null,time:null,step:1});render();document.getElementById('booking').scrollIntoView()});
+
+document.getElementById('masters').innerHTML=masters.map(m=>`<article class="m"><div class="ph"><img src="${m[3]}" alt="${m[4]}" loading="lazy" width="800" height="1000" onerror="this.remove()"></div><h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2].map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
+
+// Запись по шагам
+const all=Object.entries(services).flatMap(([cat,l])=>l.map(s=>({cat,name:s[0],price:s[2],min:s[3]})));
+const find=n=>all.find(s=>s.name===n);
+const st={step:0,service:null,master:null,day:0,time:null};
+const panel=document.getElementById('panel'),stepsEl=[...document.querySelectorAll('#steps li')];
+const days=[...Array(10)].map((_,i)=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+i);return d});
+const dname=d=>d.toLocaleDateString('ru-RU',{weekday:'short'}),dfull=d=>d.toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'});
+// Занятость условная, но стабильная: зависит от дня, часа и мастера. Прошедшие часы сегодня закрыты.
+function busy(i,t,m){if(i===0&&t<=new Date().getHours())return true;const k=(days[i].getDate()*7+t*3+(m?m.length:1))%5;return k===0||k===3}
+const opt=(label,small,pressed,data)=>`<button type="button" class="opt" aria-pressed="${pressed}" ${data}><b>${label}</b><small>${small}</small></button>`;
+function render(){
+ stepsEl.forEach((li,i)=>{li.classList.toggle('on',i===st.step);li.classList.toggle('ok',i<st.step)});
+ document.getElementById('s0').textContent=st.service?st.service.name:'не выбрана';
+ document.getElementById('s1').textContent=st.master||'не выбран';
+ document.getElementById('s2').textContent=st.time?`${days[st.day].toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}, ${st.time}`:'не выбраны';
+ let h='';
+ if(st.step===0)h=`<h3 tabindex="-1">Что будем делать?</h3><div class="opts">${all.map(s=>opt(s.name,`${s.cat}, ${fmt(s.price)}`,st.service===s,`data-svc="${s.name}"`)).join('')}</div>`;
+ if(st.step===1){const fit=masters.filter(m=>m[2].includes(st.service.cat));
+  h=`<h3 tabindex="-1">К кому записаться?</h3><div class="opts">${opt('Любой мастер','подберём свободного',st.master==='Любой мастер','data-m="Любой мастер"')}${fit.map(m=>opt(m[0],m[1],st.master===m[0],`data-m="${m[0]}"`)).join('')}</div>`}
+ if(st.step===2)h=`<h3 tabindex="-1">Когда удобно?</h3><div class="days">${days.map((x,i)=>`<button type="button" class="opt day" aria-pressed="${i===st.day}" data-day="${i}" aria-label="${dfull(x)}"><small>${dname(x)}</small><br><b>${x.getDate()}</b></button>`).join('')}</div>
+  <div class="slots">${[10,11,12,13,14,15,16,17,18,19].map(t=>{const tt=t+':00',b=busy(st.day,t,st.master);return `<button type="button" class="opt slot" data-t="${tt}" aria-pressed="${st.time===tt}" ${b?`disabled aria-label="${tt}, занято"`:''}>${tt}</button>`}).join('')}</div>`;
+ if(st.step===3)h=`<h3 tabindex="-1">Как с вами связаться?</h3><form id="f" novalidate><div class="fields">
+  <label>Имя<input name="name" autocomplete="given-name"><span class="err" id="e-name"></span></label>
+  <label>Телефон<input name="phone" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00"><span class="err" id="e-phone"></span></label>
+  <label class="full">Комментарий для мастера<textarea name="note" rows="2" placeholder="Например: хочу сохранить длину"></textarea></label>
+  <label class="consent full"><input type="checkbox" name="ok"><span>Согласен на обработку имени и телефона для записи. Это концепт: данные никуда не отправляются.</span></label><span class="err full" id="e-ok"></span>
+  </div></form>`;
+ if(st.step===4)h=`<h3 tabindex="-1">Вы записаны</h3><div class="ticket"><div><span>Услуга</span><b>${st.service.name}</b></div><div><span>Мастер</span><b>${st.master}</b></div><div><span>Когда</span><b>${dfull(days[st.day])}, ${st.time}</b></div><div><span>Стоимость</span><b>${fmt(st.service.price)}</b></div><p>Это концепт сайта: запись не создаётся и сообщение не придёт.</p></div>`;
+ const can=[!!st.service,!!st.master,!!st.time,true,true][st.step];
+ const back=st.step>0&&st.step<4?'<button type="button" class="back" data-go="-1">← Назад</button>':'<span></span>';
+ const fwd=st.step<3?`<button type="button" class="btn" data-go="1" ${can?'':'disabled'}>Дальше</button>`:st.step===3?'<button type="button" class="btn" data-go="send">Записаться</button>':'<button type="button" class="btn out" data-go="reset">Новая запись</button>';
+ panel.innerHTML=h+`<div class="nav">${back}${fwd}</div>`}
+panel.addEventListener('click',e=>{const t=e.target.closest('button');if(!t||t.disabled)return;const d=t.dataset;let focusSel=null;
+ if(d.svc){st.service=find(d.svc);st.master=null;st.time=null;focusSel=`[data-svc="${d.svc}"]`}
+ if(d.m){st.master=d.m;st.time=null;focusSel=`[data-m="${d.m}"]`}
+ if(d.day){st.day=+d.day;st.time=null;focusSel=`[data-day="${d.day}"]`}
+ if(d.t){st.time=d.t;focusSel=`[data-t="${d.t}"]`}
+ if(d.go==='1')st.step++;
+ if(d.go==='-1')st.step--;
+ if(d.go==='reset')Object.assign(st,{step:0,service:null,master:null,day:0,time:null});
+ if(d.go==='send'&&!send())return;
+ render();
+ (focusSel?panel.querySelector(focusSel):panel.querySelector('h3'))?.focus()});
+function send(){const f=document.getElementById('f');
+ const E=(n,m)=>{document.getElementById('e-'+n).textContent=m;if(f.elements[n].type!=='checkbox')f.elements[n].setAttribute('aria-invalid',!!m);return!m};
+ const ok=[E('name',f.elements.name.value.trim()?'':'Напишите имя'),
+  E('phone',/^\d{10,11}$/.test(f.elements.phone.value.replace(/\D/g,''))?'':'Нужен телефон: 10–11 цифр'),
+  E('ok',f.elements.ok.checked?'':'Отметьте согласие, чтобы мы могли вас записать')].every(Boolean);
+ if(!ok){(f.querySelector('[aria-invalid=true]')||f.elements.ok).focus();return false}
+ st.step=4;return true}
+render();
+</script>
+</body>
+</html>
