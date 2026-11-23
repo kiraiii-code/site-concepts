@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Карточки товара для WB и Ozon — пример</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:Onest,system-ui,sans-serif;background:#e9e4dc;color:#2a1d14;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;padding:32px 16px}
+.card{width:900px;height:1200px;position:relative;overflow:hidden;flex:none}
+@media (max-width:960px){.card{zoom:.4}}
+.main{background:#f6efe4}
+.main .photo{position:absolute;inset:380px -60px 110px 160px;background:url(../qrmenu/img/syrniki.jpg) center/cover;border-radius:50%;box-shadow:0 40px 80px -30px rgba(80,40,10,.45)}
+.main h1{position:absolute;left:60px;top:64px;font-size:96px;line-height:.92;font-weight:800;letter-spacing:-.04em}
+.main .sub{position:absolute;left:64px;top:270px;font-size:34px;font-weight:500;color:#7a5a42;line-height:1.25}
+.fact{position:absolute;left:52px;background:#fff;border-radius:28px;padding:22px 28px;box-shadow:0 18px 40px -20px rgba(80,40,10,.4);width:300px}
+.fact b{display:block;font-size:56px;font-weight:800;letter-spacing:-.03em;line-height:1;color:#c4561c}
+.fact span{font-size:24px;font-weight:500;line-height:1.2;display:block;margin-top:6px;text-wrap:balance}
+.f1{top:420px}.f2{top:620px}.f3{top:820px}
+.pack{position:absolute;right:48px;bottom:44px;background:#2a1d14;color:#f6efe4;font-weight:700;font-size:30px;padding:18px 30px;border-radius:99px}
+.how{background:#2a1d14;color:#f6efe4;padding:70px 60px}
+.how h2{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.how .lead{font-size:30px;color:#d7b99a;margin-top:18px}
+.steps{margin-top:60px;display:grid;gap:26px}
+.step{display:grid;grid-template-columns:110px 1fr;gap:26px;align-items:center;background:#3a2a1e;border-radius:28px;padding:26px}
+.step i{font-style:normal;font-size:64px;font-weight:800;color:#f0a35c;text-align:center}
+.step b{font-size:36px;display:block}
+.step span{font-size:26px;color:#d7b99a}
+.comp{position:absolute;left:60px;right:60px;bottom:60px;border-top:2px solid #5a4330;padding-top:28px;font-size:25px;line-height:1.4;color:#d7b99a}
+.comp b{color:#f6efe4}
+</style>
+</head>
+<body>
+  <div class="card main" aria-label="Главный слайд">
+    <div class="photo"></div>
+    <h1>Сырники<br>ручной лепки</h1>
+    <div class="sub">замороженные,<br>из фермерского творога 9%</div>
+    <div class="fact f1"><b>7 мин</b><span>на сковороде, без разморозки</span></div>
+    <div class="fact f2"><b>14 г</b><span>белка в порции из 3 штук</span></div>
+    <div class="fact f3"><b>0</b><span>консервантов и манки</span></div>
+    <div class="pack">6 шт, 420 г</div>
+  </div>
+  <div class="card how" aria-label="Слайд с приготовлением">
+    <h2>Как приготовить</h2>
+    <p class="lead">Прямо из морозилки, размораживать не нужно</p>
+    <div class="steps">
+      <div class="step"><i>1</i><div><b>Разогрейте сковороду</b><span>1 ст. л. масла, средний огонь</span></div></div>
+      <div class="step"><i>2</i><div><b>3–4 минуты с каждой стороны</b><span>до золотистой корочки</span></div></div>
+      <div class="step"><i>3</i><div><b>Под крышкой ещё 2 минуты</b><span>чтобы прогрелись внутри</span></div></div>
+    </div>
+    <p class="comp"><b>Состав:</b> творог 9%, яйцо, мука рисовая, сахар, ванилин натуральный. <b>На 100 г:</b> 218 ккал, белки 13 г, жиры 9 г, углеводы 21 г. Хранить при −18 °C 3 месяца.</p>
+  </div>
+</body>
+</html>
