@@ -158,34 +158,34 @@ footer{padding:32px 0;border-top:1px solid var(--line);color:var(--mute);font-si
 <div class="tape" aria-hidden="true"><div><span>Дизайн</span><span>Вёрстка</span><span>3D и анимации</span><span>Интерактив</span><span>Адаптив</span><span>Скорость</span><span>Дизайн</span><span>Вёрстка</span><span>3D и анимации</span><span>Интерактив</span><span>Адаптив</span><span>Скорость</span></div></div>
 
 <section id="ring"><div class="wrap">
- <h2 class="h2 rv">Покрутите галерею</h2>
- <p class="sub rv">Тяните влево и вправо. Нажмите на карточку, чтобы открыть сайт.</p>
+ <h2 class="h2">Покрутите галерею</h2>
+ <p class="sub">Тяните влево и вправо. Нажмите на карточку, чтобы открыть сайт.</p>
 </div>
  <div class="ring-wrap" id="rw"><div class="ring" id="ringEl"></div><div class="ring-hint" aria-hidden="true"><i></i>тяните</div></div>
 </section>
 
 <section id="work" style="padding-top:40px"><div class="wrap">
- <h2 class="h2 rv">Все работы</h2>
- <p class="sub rv">Каждый концепт открывается живым сайтом, а не картинкой.</p>
+ <h2 class="h2">Все работы</h2>
+ <p class="sub">Каждый концепт открывается живым сайтом, а не картинкой.</p>
  <div class="list" id="list"></div>
 </div></section>
 
 <section id="skills" style="padding-top:40px"><div class="wrap">
- <h2 class="h2 rv">Что получает заказчик</h2>
+ <h2 class="h2">Что получает заказчик</h2>
  <div class="tiles">
-  <div class="tile rv"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><div><h3>Адаптив</h3><p>Сайт одинаково удобен на телефоне, планшете и большом экране.</p></div></div>
-  <div class="tile rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><div><h3>Скорость</h3><p>Без тяжёлых конструкторов: страница открывается за доли секунды.</p></div></div>
-  <div class="tile rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5zM3 16l9 5 9-5M3 12l9 5 9-5"/></svg></div><div><h3>3D и анимации</h3><p>Движение там, где оно помогает понять продукт, а не мешает.</p></div></div>
-  <div class="tile rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><div><h3>Формы и запись</h3><p>Заявки, запись и корзина с проверкой полей и понятными ошибками.</p></div></div>
+  <div class="tile"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><div><h3>Адаптив</h3><p>Сайт одинаково удобен на телефоне, планшете и большом экране.</p></div></div>
+  <div class="tile"><div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><div><h3>Скорость</h3><p>Без тяжёлых конструкторов: страница открывается за доли секунды.</p></div></div>
+  <div class="tile"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5zM3 16l9 5 9-5M3 12l9 5 9-5"/></svg></div><div><h3>3D и анимации</h3><p>Движение там, где оно помогает понять продукт, а не мешает.</p></div></div>
+  <div class="tile"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><div><h3>Формы и запись</h3><p>Заявки, запись и корзина с проверкой полей и понятными ошибками.</p></div></div>
  </div>
 </div></section>
 
 <section class="end" id="contact">
  <div class="blob" aria-hidden="true"></div>
  <div class="wrap">
-  <h2 class="h2 rv">Сделаем ваш сайт?</h2>
-  <p class="sub rv" style="margin:auto">Напишите на FL.ru: отвечу в течение дня и покажу первый экран через 2–3 дня.</p>
-  <a class="mag rv" href="https://www.fl.ru/users/pipisapopa1234/portfolio/" target="_blank" rel="noopener"><span>Написать на FL.ru</span></a>
+  <h2 class="h2">Сделаем ваш сайт?</h2>
+  <p class="sub" style="margin:auto">Напишите на FL.ru: отвечу в течение дня и покажу первый экран через 2–3 дня.</p>
+  <a class="mag" href="https://www.fl.ru/users/pipisapopa1234/portfolio/" target="_blank" rel="noopener"><span>Написать на FL.ru</span></a>
  </div>
 </section>
 </main>
@@ -249,7 +249,7 @@ rw.addEventListener('click',e=>{if(moved>6)e.preventDefault()},true);
 
 // Список работ с картинкой, летящей за курсором
 const list=document.getElementById('list'),fl=document.getElementById('float'),fi=document.getElementById('floatImg');
-list.innerHTML=works.map((w,i)=>`<a class="item rv" href="${w.u}" data-img="${w.img}"><span class="n">0${i+1}</span><div><h3>${w.t}</h3><p>${w.d}</p></div><span class="go" aria-hidden="true">↗</span></a>`).join('');
+list.innerHTML=works.map((w,i)=>`<a class="item" href="${w.u}" data-img="${w.img}"><span class="n">0${i+1}</span><div><h3>${w.t}</h3><p>${w.d}</p></div><span class="go" aria-hidden="true">↗</span></a>`).join('');
 let fx=0,fy=0,fpx=0,fpy=0;
 list.addEventListener('pointerover',e=>{const it=e.target.closest('.item');if(!it)return;fi.src=it.dataset.img;fl.classList.add('on')});
 list.addEventListener('pointerleave',()=>fl.classList.remove('on'));

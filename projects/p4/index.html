@@ -180,30 +180,30 @@ footer a{text-decoration:none}
 <div class="marquee band" aria-hidden="true"><div><span>Женские стрижки</span><span>Балаяж</span><span>Тонирование</span><span>Кератин</span><span>Укладки</span><span>Мужские стрижки</span><span>Уход для кожи головы</span><span>Женские стрижки</span><span>Балаяж</span><span>Тонирование</span><span>Кератин</span><span>Укладки</span><span>Мужские стрижки</span><span>Уход для кожи головы</span></div></div>
 
 <section class="prices" id="prices"><div class="wrap">
- <h2 data-split>Услуги и цены</h2>
+ <h2>Услуги и цены</h2>
  <p class="sub">Цена зависит от длины волос и опыта мастера. Точную стоимость назовём на бесплатной консультации.</p>
  <div class="tabs" role="tablist" aria-label="Категории услуг" id="tabs"></div>
  <div class="plist" id="plist" role="tabpanel"></div>
 </div></section>
 
 <section id="team"><div class="wrap">
- <h2 data-split>Мастера</h2>
+ <h2>Мастера</h2>
  <p class="sub">Записаться можно к конкретному мастеру или к любому свободному.</p>
- <div class="masters" id="masters" data-stagger></div>
+ <div class="masters" id="masters"></div>
 </div></section>
 
 <section style="padding-top:0"><div class="wrap">
- <h2 data-split>Работы</h2>
+ <h2>Работы</h2>
  <p class="sub">Балаяж, тонирование и стрижки. Перед окрашиванием мастер показывает оттенок при дневном свете.</p>
- <div class="works" data-stagger>
-  <figure data-reveal="scale"><img src="img/work-1.jpg" alt="Окрашивание в технике балаяж, медово-карамельные оттенки" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
-  <figure data-reveal="scale"><img src="img/work-2.jpg" alt="Короткая стрижка боб на тёмных волосах" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
-  <div class="review" data-reveal><h3 class="rv">Как проходит окрашивание</h3><ol class="visit"><li>Смотрим волосы и фото, которые вы принесли.</li><li>Подбираем оттенок на пряди у окна.</li><li>Называем точную цену до начала работы.</li><li>Даём домашний уход на месяц вперёд.</li></ol><a class="btn" href="#booking" style="background:#fff;color:var(--plum);align-self:start">Записаться к колористу</a></div>
+ <div class="works">
+  <figure><img src="img/work-1.jpg" alt="Окрашивание в технике балаяж, медово-карамельные оттенки" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <figure><img src="img/work-2.jpg" alt="Короткая стрижка боб на тёмных волосах" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <div class="review"><h3 class="rv">Как проходит окрашивание</h3><ol class="visit"><li>Смотрим волосы и фото, которые вы принесли.</li><li>Подбираем оттенок на пряди у окна.</li><li>Называем точную цену до начала работы.</li><li>Даём домашний уход на месяц вперёд.</li></ol><a class="btn" href="#booking" style="background:#fff;color:var(--plum);align-self:start">Записаться к колористу</a></div>
  </div>
 </div></section>
 
 <section class="booking" id="booking"><div class="wrap">
- <h2 data-split>Онлайн-запись</h2>
+ <h2>Онлайн-запись</h2>
  <p class="sub">Четыре шага: услуга, мастер, время и контакты. Подтвердим запись сообщением за день до визита.</p>
  <div class="bk">
   <ol class="steps" id="steps">
@@ -218,7 +218,7 @@ footer a{text-decoration:none}
 
 <section id="contacts"><div class="wrap contacts">
  <div>
-  <h2 data-split>Как нас найти</h2>
+  <h2>Как нас найти</h2>
   <dl>
    <dt>Адрес</dt><dd>Садовая улица, вход со двора</dd>
    <dt>Часы</dt><dd>Ежедневно с 10:00 до 21:00</dd>
@@ -226,7 +226,7 @@ footer a{text-decoration:none}
   </dl>
   <a class="btn" href="#booking">Записаться</a>
  </div>
- <div class="map" data-reveal="scale" data-tilt="3">
+ <div class="map" data-tilt="3">
   <svg viewBox="0 0 640 440" role="img" aria-label="Схема: студия во дворе дома на Садовой улице, в 5 минутах от метро">
    <rect width="640" height="440" fill="#EFE6E2"/>
    <g fill="#E3D6D1"><rect x="30" y="30" width="170" height="120" rx="6"/><rect x="240" y="30" width="150" height="120" rx="6"/><rect x="430" y="30" width="180" height="120" rx="6"/><rect x="30" y="200" width="170" height="210" rx="6"/><rect x="430" y="200" width="180" height="210" rx="6"/></g>
@@ -267,7 +267,7 @@ function showCat(c){tabs.querySelectorAll('button').forEach(b=>b.setAttribute('a
 showCat('Стрижки');
 plist.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;Object.assign(st,{service:find(b.dataset.s),master:null,time:null,step:1});render();document.getElementById('booking').scrollIntoView()});
 
-document.getElementById('masters').innerHTML=masters.map(m=>`<article class="m" data-tilt="5" data-reveal><div class="ph"><img src="${m[3]}" alt="${m[4]}" loading="lazy" width="800" height="1000" onerror="this.remove()"></div><h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2].map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
+document.getElementById('masters').innerHTML=masters.map(m=>`<article class="m" data-tilt="5"><div class="ph"><img src="${m[3]}" alt="${m[4]}" loading="lazy" width="800" height="1000" onerror="this.remove()"></div><h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2].map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
 
 // Запись по шагам
 const all=Object.entries(services).flatMap(([cat,l])=>l.map(s=>({cat,name:s[0],price:s[2],min:s[3]})));

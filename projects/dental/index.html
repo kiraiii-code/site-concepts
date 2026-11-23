@@ -23,7 +23,7 @@ header.solid{top:0;background:rgba(6,35,31,.82);backdrop-filter:blur(12px)}
 .logo{font-weight:800;font-size:24px;letter-spacing:-.04em;text-decoration:none;display:flex;gap:10px;align-items:center}
 .logo i{width:26px;height:30px;border-radius:13px 13px 9px 9px;background:linear-gradient(160deg,#fff,var(--mint));box-shadow:0 0 18px rgba(127,227,196,.6)}
 nav.menu{display:flex;gap:30px;font-size:15px;align-items:center}
-nav.menu a{text-decoration:none;color:var(--mist)}nav.menu a:hover{color:#fff}
+nav.menu a{text-decoration:none;color:var(--mist)}nav.menu a:hover{color:#fff}nav.menu a.btn{color:var(--deep)}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:99px;background:var(--mint);color:var(--deep);font:600 16px Onest,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px -12px var(--mint)}.btn:active{transform:translateY(0) scale(.98)}
 .btn.ghost{background:transparent;color:var(--porcelain);box-shadow:inset 0 0 0 1.5px var(--line)}.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--mint)}
@@ -181,9 +181,9 @@ footer{padding:48px 0;color:#8FAAA2;font-size:14px;display:flex;justify-content:
 </div>
 
 <section id="smile"><div class="wrap">
- <h2 class="title rv">Потяните ползунок</h2>
- <p class="sub rv">Так меняется улыбка после отбеливания и керамических виниров. Пример смоделирован, а не снят у пациента.</p>
- <div class="compare rv" id="cmp">
+ <h2 class="title">Потяните ползунок</h2>
+ <p class="sub">Так меняется улыбка после отбеливания и керамических виниров. Пример смоделирован, а не снят у пациента.</p>
+ <div class="compare" id="cmp">
   <div class="side before"><img src="img/smile.jpg" alt="Улыбка до лечения: тусклые желтоватые зубы"><span class="tag">До</span></div>
   <div class="side after"><img src="img/smile.jpg" alt="Улыбка после лечения: ровные белые зубы"><span class="tag">После</span></div>
   <div class="handle"><span aria-hidden="true">⇆</span></div>
@@ -192,24 +192,18 @@ footer{padding:48px 0;color:#8FAAA2;font-size:14px;display:flex;justify-content:
 </div></section>
 
 <section id="services" style="padding-top:0"><div class="wrap">
- <h2 class="title rv">Цены без звёздочек</h2>
- <p class="sub rv">В цену входят снимки, анестезия и контрольный осмотр.</p>
+ <h2 class="title">Цены без звёздочек</h2>
+ <p class="sub">В цену входят снимки, анестезия и контрольный осмотр.</p>
  <div class="svc">
-  <a class="card rv" href="#book"><div><h3>Лечение кариеса</h3><p>Под микроскопом, светоотверждаемая пломба</p></div><b>4 900 ₽</b></a>
-  <a class="card rv" href="#book"><div><h3>Имплант под ключ</h3><p>Имплант, абатмент и коронка из циркония</p></div><b>59 000 ₽</b></a>
-  <a class="card rv" href="#book"><div><h3>Элайнеры</h3><p>Весь курс с моделированием улыбки</p></div><b>от 190 000 ₽</b></a>
-  <a class="card rv" href="#book"><div><h3>Гигиена</h3><p>Ультразвук, Air Flow, фторирование</p></div><b>5 500 ₽</b></a>
+  <a class="card" href="#book"><div><h3>Лечение кариеса</h3><p>Под микроскопом, светоотверждаемая пломба</p></div><b>4 900 ₽</b></a>
+  <a class="card" href="#book"><div><h3>Имплант под ключ</h3><p>Имплант, абатмент и коронка из циркония</p></div><b>59 000 ₽</b></a>
+  <a class="card" href="#book"><div><h3>Элайнеры</h3><p>Весь курс с моделированием улыбки</p></div><b>от 190 000 ₽</b></a>
+  <a class="card" href="#book"><div><h3>Гигиена</h3><p>Ультразвук, Air Flow, фторирование</p></div><b>5 500 ₽</b></a>
  </div>
 </div></section>
 
-<section style="padding-top:0"><div class="wrap nums">
- <div class="rv"><b data-count="15">15</b><span>минут на 3D-диагностику</span></div>
- <div class="rv"><b data-count="10">10</b><span>лет гарантии на импланты</span></div>
- <div class="rv"><b data-count="1">1</b><span>визит на имплант с коронкой</span></div>
-</div></section>
-
 <section id="book" style="padding-top:0"><div class="wrap">
- <div class="cta rv" id="cta">
+ <div class="cta" id="cta">
   <div>
    <h2 class="title">Начните с 3D-консультации</h2>
    <p class="sub" style="margin-bottom:28px">Покажем снимок, план и точную цену. Консультация бесплатная, если начнёте лечение.</p>

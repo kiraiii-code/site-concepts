@@ -88,8 +88,7 @@ h2{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.035em;line-height:1.05;marg
 .chart{display:flex;align-items:flex-end;gap:8px;height:170px;margin-top:32px}
 .chart i{flex:1;background:#2A2E37;border-radius:6px 6px 2px 2px;position:relative}
 .chart i.me{background:var(--sun)}
-.chart i{transform-origin:bottom;transform:scaleY(0);transition:transform 1s cubic-bezier(.2,.9,.2,1)}
-.f.big.in .chart i{transform:none}.f.big.in .chart i:nth-child(2){transition-delay:.1s}.f.big.in .chart i:nth-child(3){transition-delay:.2s}.f.big.in .chart i:nth-child(4){transition-delay:.3s}.f.big.in .chart i:nth-child(5){transition-delay:.4s}
+
 .chart i::after{content:attr(data-n);position:absolute;top:-22px;left:0;right:0;text-align:center;font-size:12px;color:#AEB4C0;font-style:normal}
 .chart-l{display:flex;gap:8px;margin-top:8px;font-size:12px;color:#8D94A1}.chart-l span{flex:1;text-align:center}
 .f .mini{display:flex;gap:6px;margin-top:20px;flex-wrap:wrap}
@@ -206,37 +205,37 @@ input[aria-invalid=true]{border-color:var(--coral)}
 </div>
 
 <section id="how"><div class="wrap">
- <h2 data-split>Первая доска готова за пять минут</h2>
+ <h2>Первая доска готова за пять минут</h2>
  <p class="sub">Не нужно ничего настраивать заранее: начните с задач, которые уже висят в чатах.</p>
- <div class="steps" data-stagger>
-  <div class="step" data-reveal><b>1</b><h3>Перенесите задачи</h3><p>Вставьте список из таблицы или перешлите письма боту. Flowly сам разложит их по карточкам.</p></div>
-  <div class="step" data-reveal><b>2</b><h3>Позовите команду</h3><p>Отправьте ссылку. Коллеги заходят без регистрации и сразу видят свои задачи.</p></div>
-  <div class="step" data-reveal><b>3</b><h3>Двигайте карточки</h3><p>Перетащили в «Готово», и заказчик сразу получил уведомление.</p></div>
+ <div class="steps">
+  <div class="step"><b>1</b><h3>Перенесите задачи</h3><p>Вставьте список из таблицы или перешлите письма боту. Flowly сам разложит их по карточкам.</p></div>
+  <div class="step"><b>2</b><h3>Позовите команду</h3><p>Отправьте ссылку. Коллеги заходят без регистрации и сразу видят свои задачи.</p></div>
+  <div class="step"><b>3</b><h3>Двигайте карточки</h3><p>Перетащили в «Готово», и заказчик сразу получил уведомление.</p></div>
  </div>
 </div></section>
 
 <section id="features"><div class="wrap">
- <h2 data-split>Видно, где проект буксует</h2>
+ <h2>Видно, где проект буксует</h2>
  <p class="sub">Руководитель видит нагрузку, исполнитель видит свои задачи на сегодня.</p>
  <div class="feat">
-  <div class="f big" data-tilt="4" data-reveal>
+  <div class="f big" data-tilt="4">
    <div><h3>Нагрузка по людям</h3><p>Сразу видно, у кого 14 задач, а у кого две. Перекиньте работу одним движением, пока никто не выгорел.</p></div>
    <div><div class="chart" aria-hidden="true"><i style="height:45%" data-n="6"></i><i class="me" style="height:100%" data-n="14"></i><i style="height:60%" data-n="8"></i><i style="height:22%" data-n="3"></i><i style="height:52%" data-n="7"></i></div>
    <div class="chart-l"><span>Анна</span><span>Илья</span><span>Марк</span><span>Ольга</span><span>Тимур</span></div></div>
   </div>
-  <div class="f" data-tilt="6" data-reveal><h3>Сроки без сюрпризов</h3><p>Карточка краснеет за два дня до дедлайна, а не в день сдачи.</p><div class="mini"><span>Напоминания</span><span>Календарь</span><span>Повторы</span></div></div>
-  <div class="f" data-tilt="6" data-reveal><h3>Работает там, где вы</h3><p>Задачи приходят в Telegram и на почту, файлы подтягиваются из облака.</p><div class="mini"><span>Telegram</span><span>Почта</span><span>Облачный диск</span><span>1С</span></div></div>
+  <div class="f" data-tilt="6"><h3>Сроки без сюрпризов</h3><p>Карточка краснеет за два дня до дедлайна, а не в день сдачи.</p><div class="mini"><span>Напоминания</span><span>Календарь</span><span>Повторы</span></div></div>
+  <div class="f" data-tilt="6"><h3>Работает там, где вы</h3><p>Задачи приходят в Telegram и на почту, файлы подтягиваются из облака.</p><div class="mini"><span>Telegram</span><span>Почта</span><span>Облачный диск</span><span>1С</span></div></div>
  </div>
 </div></section>
 
 <section id="pricing"><div class="wrap">
- <h2 data-split>Платите за команду, а не за каждую кнопку</h2>
+ <h2>Платите за команду, а не за каждую кнопку</h2>
  <p class="sub">Все функции открыты на любом тарифе. Разница в размере команды и глубине истории.</p>
  <div class="toggle" role="group" aria-label="Период оплаты"><button type="button" aria-pressed="true" data-p="m">Помесячно</button><button type="button" aria-pressed="false" data-p="y">За год <em>−20%</em></button></div>
- <div class="plans" data-stagger>
-  <div class="plan" data-tilt="5" data-reveal><h3>Старт</h3><p>Для фрилансера и пары коллег</p><div class="price" data-m="0" data-y="0">0 ₽</div><ul><li>До 3 участников</li><li>2 доски</li><li>История за 30 дней</li></ul><a class="btn line" href="#signup" data-plan="Старт">Начать бесплатно</a></div>
-  <div class="plan pop" data-tilt="5" data-reveal><span class="badge">Выбирают чаще</span><h3>Команда</h3><p>Для студии или отдела</p><div class="price" data-m="490" data-y="392">490 ₽</div><ul><li>До 25 участников</li><li>Доски без ограничений</li><li>Отчёты по нагрузке</li><li>Telegram и почта</li></ul><a class="btn" href="#signup" data-plan="Команда">Выбрать «Команду»</a></div>
-  <div class="plan" data-tilt="5" data-reveal><h3>Компания</h3><p>Для нескольких отделов</p><div class="price" data-m="890" data-y="712">890 ₽</div><ul><li>Участники без ограничений</li><li>Роли и права доступа</li><li>Интеграция с 1С</li><li>Персональный менеджер</li></ul><a class="btn line" href="#signup" data-plan="Компания">Выбрать «Компанию»</a></div>
+ <div class="plans">
+  <div class="plan" data-tilt="5"><h3>Старт</h3><p>Для фрилансера и пары коллег</p><div class="price" data-m="0" data-y="0">0 ₽</div><ul><li>До 3 участников</li><li>2 доски</li><li>История за 30 дней</li></ul><a class="btn line" href="#signup" data-plan="Старт">Начать бесплатно</a></div>
+  <div class="plan pop" data-tilt="5"><span class="badge">Выбирают чаще</span><h3>Команда</h3><p>Для студии или отдела</p><div class="price" data-m="490" data-y="392">490 ₽</div><ul><li>До 25 участников</li><li>Доски без ограничений</li><li>Отчёты по нагрузке</li><li>Telegram и почта</li></ul><a class="btn" href="#signup" data-plan="Команда">Выбрать «Команду»</a></div>
+  <div class="plan" data-tilt="5"><h3>Компания</h3><p>Для нескольких отделов</p><div class="price" data-m="890" data-y="712">890 ₽</div><ul><li>Участники без ограничений</li><li>Роли и права доступа</li><li>Интеграция с 1С</li><li>Персональный менеджер</li></ul><a class="btn line" href="#signup" data-plan="Компания">Выбрать «Компанию»</a></div>
  </div>
 </div></section>
 
@@ -252,7 +251,7 @@ input[aria-invalid=true]{border-color:var(--coral)}
 
 <section id="signup" style="padding-top:0"><div class="wrap">
  <div class="signup" id="signupBox">
-  <div><h2 data-split>Соберите первую доску сегодня</h2><p class="sub">Пришлём ссылку на рабочее пространство. Тариф можно сменить в любой момент.</p></div>
+  <div><h2>Соберите первую доску сегодня</h2><p class="sub">Пришлём ссылку на рабочее пространство. Тариф можно сменить в любой момент.</p></div>
   <div>
    <form id="form" novalidate>
     <label>Имя<input name="name" autocomplete="given-name" required><span class="err" id="e-name"></span></label>
