@@ -6,6 +6,7 @@
 <title>Studio Rosa — студия красоты (концепт)</title>
 <meta name="description" content="Концепт сайта студии красоты: прайс по категориям, мастера, работы, онлайн-запись по шагам.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/wow.css">
 <style>
 :root{--milk:#FFFBFA;--blush:#F6E6EA;--plum:#3A1230;--rose:#B23A62;--sage:#7E9A8B;--muted:#4A3443;--label:#6E5764;--line:#E9D3DA}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -120,6 +121,8 @@ input[aria-invalid=true]{border-color:#C0392B}
 .map{border-radius:22px;overflow:hidden;background:#EFE6E2;aspect-ratio:16/11}
 .map svg{width:100%;height:100%;display:block}
 
+.band{background:var(--plum);color:var(--blush);padding:22px 0;font:italic 400 clamp(26px,3vw,40px)/1 Cormorant,serif}
+.band span{display:inline-flex;align-items:center;gap:3rem}.band span::after{content:"✦";font-style:normal;font-size:.6em;color:var(--rose)}
 footer{border-top:1px solid var(--line);padding:32px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
 footer a{text-decoration:none}
 
@@ -142,11 +145,12 @@ footer a{text-decoration:none}
  .facts{gap:24px}
  .pi{flex-wrap:wrap}.pi .lead{display:none}.pi > span:first-child{flex-basis:100%}
 }
-.arch img{animation:open 1.1s cubic-bezier(.2,.7,.2,1) both}
-.hero h1{animation:up .8s cubic-bezier(.2,.7,.2,1) both .15s}
+.arch{clip-path:inset(100% 0 0 0 round 999px 999px 18px 18px);animation:arch 1.4s cubic-bezier(.7,0,.2,1) .2s forwards}
+.arch img{animation:open 1.8s cubic-bezier(.2,.7,.2,1) both .2s}
+@keyframes arch{to{clip-path:inset(0 0 0 0 round 999px 999px 18px 18px)}}
 @keyframes open{from{transform:scale(1.08);opacity:.2}}
 @keyframes up{from{opacity:0;transform:translateY(14px)}}
-@media (prefers-reduced-motion:reduce){.arch img,.hero h1{animation:none}}
+@media (prefers-reduced-motion:reduce){.arch img,.hero h1,.arch{animation:none;clip-path:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -162,9 +166,9 @@ footer a{text-decoration:none}
 
 <div class="hero">
  <div>
-  <h1>Стрижки и окрашивание без спешки</h1>
+  <h1 data-split>Стрижки и окрашивание без спешки</h1>
   <p>Небольшая студия в центре города. Три мастера, у каждого клиента своё время, никто не ждёт в коридоре.</p>
-  <div class="row"><a class="btn" href="#booking">Записаться онлайн</a><a class="btn out" href="#prices">Посмотреть цены</a></div>
+  <div class="row"><a class="btn" data-mag href="#booking">Записаться онлайн</a><a class="btn out" data-mag href="#prices">Посмотреть цены</a></div>
   <div class="facts"><div><b data-assumed>10–21</b><span>ежедневно, без выходных</span></div><div><b>0 ₽</b><span>консультация перед окрашиванием</span></div></div>
  </div>
  <div class="arch">
@@ -173,31 +177,33 @@ footer a{text-decoration:none}
 </div>
 </div>
 
+<div class="marquee band" aria-hidden="true"><div><span>Женские стрижки</span><span>Балаяж</span><span>Тонирование</span><span>Кератин</span><span>Укладки</span><span>Мужские стрижки</span><span>Уход для кожи головы</span><span>Женские стрижки</span><span>Балаяж</span><span>Тонирование</span><span>Кератин</span><span>Укладки</span><span>Мужские стрижки</span><span>Уход для кожи головы</span></div></div>
+
 <section class="prices" id="prices"><div class="wrap">
- <h2>Услуги и цены</h2>
+ <h2 data-split>Услуги и цены</h2>
  <p class="sub">Цена зависит от длины волос и опыта мастера. Точную стоимость назовём на бесплатной консультации.</p>
  <div class="tabs" role="tablist" aria-label="Категории услуг" id="tabs"></div>
  <div class="plist" id="plist" role="tabpanel"></div>
 </div></section>
 
 <section id="team"><div class="wrap">
- <h2>Мастера</h2>
+ <h2 data-split>Мастера</h2>
  <p class="sub">Записаться можно к конкретному мастеру или к любому свободному.</p>
- <div class="masters" id="masters"></div>
+ <div class="masters" id="masters" data-stagger></div>
 </div></section>
 
 <section style="padding-top:0"><div class="wrap">
- <h2>Работы</h2>
+ <h2 data-split>Работы</h2>
  <p class="sub">Балаяж, тонирование и стрижки. Перед окрашиванием мастер показывает оттенок при дневном свете.</p>
- <div class="works">
-  <figure><img src="img/work-1.jpg" alt="Окрашивание в технике балаяж, медово-карамельные оттенки" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
-  <figure><img src="img/work-2.jpg" alt="Короткая стрижка боб на тёмных волосах" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
-  <div class="review"><h3 class="rv">Как проходит окрашивание</h3><ol class="visit"><li>Смотрим волосы и фото, которые вы принесли.</li><li>Подбираем оттенок на пряди у окна.</li><li>Называем точную цену до начала работы.</li><li>Даём домашний уход на месяц вперёд.</li></ol><a class="btn" href="#booking" style="background:#fff;color:var(--plum);align-self:start">Записаться к колористу</a></div>
+ <div class="works" data-stagger>
+  <figure data-reveal="scale"><img src="img/work-1.jpg" alt="Окрашивание в технике балаяж, медово-карамельные оттенки" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <figure data-reveal="scale"><img src="img/work-2.jpg" alt="Короткая стрижка боб на тёмных волосах" loading="lazy" width="900" height="900" onerror="this.remove()"></figure>
+  <div class="review" data-reveal><h3 class="rv">Как проходит окрашивание</h3><ol class="visit"><li>Смотрим волосы и фото, которые вы принесли.</li><li>Подбираем оттенок на пряди у окна.</li><li>Называем точную цену до начала работы.</li><li>Даём домашний уход на месяц вперёд.</li></ol><a class="btn" href="#booking" style="background:#fff;color:var(--plum);align-self:start">Записаться к колористу</a></div>
  </div>
 </div></section>
 
 <section class="booking" id="booking"><div class="wrap">
- <h2>Онлайн-запись</h2>
+ <h2 data-split>Онлайн-запись</h2>
  <p class="sub">Четыре шага: услуга, мастер, время и контакты. Подтвердим запись сообщением за день до визита.</p>
  <div class="bk">
   <ol class="steps" id="steps">
@@ -212,7 +218,7 @@ footer a{text-decoration:none}
 
 <section id="contacts"><div class="wrap contacts">
  <div>
-  <h2>Как нас найти</h2>
+  <h2 data-split>Как нас найти</h2>
   <dl>
    <dt>Адрес</dt><dd>Садовая улица, вход со двора</dd>
    <dt>Часы</dt><dd>Ежедневно с 10:00 до 21:00</dd>
@@ -220,7 +226,7 @@ footer a{text-decoration:none}
   </dl>
   <a class="btn" href="#booking">Записаться</a>
  </div>
- <div class="map">
+ <div class="map" data-reveal="scale" data-tilt="3">
   <svg viewBox="0 0 640 440" role="img" aria-label="Схема: студия во дворе дома на Садовой улице, в 5 минутах от метро">
    <rect width="640" height="440" fill="#EFE6E2"/>
    <g fill="#E3D6D1"><rect x="30" y="30" width="170" height="120" rx="6"/><rect x="240" y="30" width="150" height="120" rx="6"/><rect x="430" y="30" width="180" height="120" rx="6"/><rect x="30" y="200" width="170" height="210" rx="6"/><rect x="430" y="200" width="180" height="210" rx="6"/></g>
@@ -261,7 +267,7 @@ function showCat(c){tabs.querySelectorAll('button').forEach(b=>b.setAttribute('a
 showCat('Стрижки');
 plist.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;Object.assign(st,{service:find(b.dataset.s),master:null,time:null,step:1});render();document.getElementById('booking').scrollIntoView()});
 
-document.getElementById('masters').innerHTML=masters.map(m=>`<article class="m"><div class="ph"><img src="${m[3]}" alt="${m[4]}" loading="lazy" width="800" height="1000" onerror="this.remove()"></div><h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2].map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
+document.getElementById('masters').innerHTML=masters.map(m=>`<article class="m" data-tilt="5" data-reveal><div class="ph"><img src="${m[3]}" alt="${m[4]}" loading="lazy" width="800" height="1000" onerror="this.remove()"></div><h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2].map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
 
 // Запись по шагам
 const all=Object.entries(services).flatMap(([cat,l])=>l.map(s=>({cat,name:s[0],price:s[2],min:s[3]})));
@@ -315,5 +321,7 @@ function send(){const f=document.getElementById('f');
  st.step=4;return true}
 render();
 </script>
+<div class="wow-progress" style="--wow-accent:#B23A62"></div>
+<script src="../../assets/wow.js"></script>
 </body>
 </html>

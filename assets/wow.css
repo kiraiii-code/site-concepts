@@ -1,0 +1,30 @@
+/* Общий интерактивный слой концептов: появление, наклон, магнитные кнопки, прогресс прокрутки */
+[data-split] .wd{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+[data-split] .wd>span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.9,.2,1)}
+[data-split].in .wd>span{transform:none}
+
+[data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .9s cubic-bezier(.2,.9,.2,1)}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal="scale"]{transform:scale(.94)}
+[data-reveal="left"]{transform:translateX(-40px)}
+
+[data-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
+[data-tilt].tilting{transition:transform .08s linear}
+[data-tilt] .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(320px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.35),transparent 50%);opacity:0;transition:opacity .3s;mix-blend-mode:soft-light;z-index:3}
+[data-tilt]:hover .glare{opacity:1}
+
+[data-mag]{transition:transform .4s cubic-bezier(.2,1.5,.4,1)}
+[data-mag].magging{transition:transform .12s linear}
+
+.wow-progress{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);z-index:9999;pointer-events:none;background:var(--wow-accent,#FF5A36)}
+
+.marquee{overflow:hidden;white-space:nowrap}
+.marquee>div{display:inline-flex;gap:3rem;animation:wow-marquee var(--speed,26s) linear infinite}
+.marquee:hover>div{animation-play-state:paused}
+@keyframes wow-marquee{to{transform:translateX(-50%)}}
+
+@media (prefers-reduced-motion:reduce){
+ [data-split] .wd>span,[data-reveal]{transform:none!important;opacity:1!important;transition:none!important}
+ [data-tilt],[data-mag]{transform:none!important}
+ .marquee>div{animation:none}
+}

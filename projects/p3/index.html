@@ -6,6 +6,7 @@
 <title>Pulse — панель аналитики продаж (концепт)</title>
 <meta name="description" content="Концепт панели аналитики: показатели, интерактивный график, клиенты с поиском и сортировкой, отчёты, настройки.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/wow.css">
 <style>
 :root{--bg:#0d1117;--side:#10161f;--card:#151c27;--line:#232d3b;--text:#e6edf3;--muted:#8b98a9;--g:#34d399;--b:#3b82f6;--r:#f87171}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.5 Onest,system-ui,sans-serif;font-variant-numeric:tabular-nums;display:grid;grid-template-columns:230px 1fr;min-height:100vh}
@@ -17,6 +18,14 @@ aside a:focus-visible,.seg button:focus-visible,th button:focus-visible{outline:
 aside a:hover{background:var(--card);color:var(--text)}aside a.on{background:rgba(52,211,153,.12);color:var(--g)}
 .back{margin-top:auto;font-size:13px;border:1px dashed var(--line)}
 main{padding:28px 32px;overflow:hidden}
+.ln{stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 1.4s cubic-bezier(.6,0,.2,1) forwards}
+.area{opacity:0;animation:fadein .8s .7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}@keyframes fadein{to{opacity:1}}
+aside{animation:slidein .7s cubic-bezier(.2,.9,.2,1) backwards}
+@keyframes slidein{from{transform:translateX(-30px);opacity:0}}
+.k b{font-variant-numeric:tabular-nums}
+.card{transition:border-color .3s,box-shadow .3s}.card:hover{border-color:#34516f;box-shadow:0 20px 50px -30px rgba(59,130,246,.6)}
+@media(prefers-reduced-motion:reduce){.ln{animation:none;stroke-dashoffset:0}.area{opacity:1;animation:none}aside{animation:none}}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px;flex-wrap:wrap}
 h1{margin:0;font-size:26px}.top small{color:var(--muted)}
 .seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px}
@@ -71,11 +80,11 @@ td{padding:12px 10px;border-top:1px solid var(--line)}tbody tr:hover{background:
 <main>
 <div class="top"><div><h1 id="title">Обзор</h1><small>Демо-данные · обновлено только что</small></div>
 <div class="seg" id="seg"><button data-r="w" class="on">7 дней</button><button data-r="m">30 дней</button><button data-r="y">Год</button></div></div>
-<div class="kpis">
-<div class="card k"><span>Выручка</span><b id="k1">—</b><em class="up" id="d1"></em></div>
-<div class="card k"><span>Новые клиенты</span><b id="k2">—</b><em class="up" id="d2"></em></div>
-<div class="card k"><span>Конверсия</span><b id="k3">—</b><em class="dn" id="d3"></em></div>
-<div class="card k"><span>Средний чек</span><b id="k4">—</b><em class="up" id="d4"></em></div>
+<div class="kpis" data-stagger>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Выручка</span><b id="k1">—</b><em class="up" id="d1"></em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Новые клиенты</span><b id="k2">—</b><em class="up" id="d2"></em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Конверсия</span><b id="k3">—</b><em class="dn" id="d3"></em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Средний чек</span><b id="k4">—</b><em class="up" id="d4"></em></div>
 </div>
 <div class="two">
 <div class="card"><div class="chead"><b>Выручка, тыс. ₽</b><span class="legend"><span><i></i>Текущий период</span><span><i class="d"></i>Прошлый</span></span></div><div class="chart" id="chart"></div><div class="labels" id="labels"></div></div>
@@ -90,9 +99,9 @@ td{padding:12px 10px;border-top:1px solid var(--line)}tbody tr:hover{background:
 
 <section class="view" id="view-sales" hidden>
 <div class="kpis">
-<div class="card k"><span>Сегодня</span><b>48 200 ₽</b><em class="up">+6%</em></div>
-<div class="card k"><span>Вчера</span><b>45 400 ₽</b><em class="dn">−2%</em></div>
-<div class="card k"><span>Возвраты</span><b>3</b><em class="up">−1</em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Сегодня</span><b>48 200 ₽</b><em class="up">+6%</em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Вчера</span><b>45 400 ₽</b><em class="dn">−2%</em></div>
+<div class="card k" data-tilt="6" data-reveal="scale"><span>Возвраты</span><b>3</b><em class="up">−1</em></div>
 </div>
 <div class="card" style="margin-top:16px"><b>Продажи по категориям</b>
 <div class="bars" id="bars"></div></div>
@@ -121,7 +130,10 @@ y:{k:["16,9 млн ₽","6 240","3,9%","3 050 ₽"],d:["+31%","+27%","+0,1%","+9
 // Масштаб: сумма точек графика равна выручке периода (386,4 тыс., 1,42 млн, 16,9 млн)
 const scale={w:386.4/482/10,m:1420/556/10,y:16900/758/10};
 const full={w:["понедельник","вторник","среда","четверг","пятница","суббота","воскресенье"],m:["1","5","9","13","17","21","25","30"].map(x=>x+" число"),y:["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"]};
-function show(r){const d=D[r];d.k.forEach((v,i)=>{document.getElementById('k'+(i+1)).textContent=v;const e=document.getElementById('d'+(i+1));e.textContent=d.d[i]+' к прошлому периоду';e.className=d.d[i].startsWith('−')?'dn':'up'});
+function countTo(el,str){const m=str.match(/[\d\s]+(,\d+)?/);if(!m||matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=str;return}
+ const raw=m[0].trim(),dec=(raw.split(',')[1]||'').length,to=parseFloat(raw.replace(/\s/g,'').replace(',','.'));let t0=null;
+ (function a(t){t0??=t;const k=Math.min(1,(t-t0)/900),v=(to*(1-Math.pow(1-k,3))).toLocaleString('ru-RU',{minimumFractionDigits:dec,maximumFractionDigits:dec});el.textContent=str.replace(raw,v);if(k<1)requestAnimationFrame(a)})(performance.now())}
+function show(r){const d=D[r];d.k.forEach((v,i)=>{countTo(document.getElementById('k'+(i+1)),v);const e=document.getElementById('d'+(i+1));e.textContent=d.d[i]+' к прошлому периоду';e.className=d.d[i].startsWith('−')?'dn':'up'});
  const W=600,H=230,P=8,n=d.v.length,max=110,x=i=>P+i*(W-2*P)/(n-1),y=v=>H-P-(v/max)*(H-2*P);
  const prev=d.v.map((v,i)=>Math.max(8,v*0.86-(i%3)*3));
  const path=a=>a.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join(' ');
@@ -183,5 +195,6 @@ document.getElementById('save').addEventListener('click',()=>{document.getElemen
 
 go(location.hash.slice(1).replace('view-',''));
 </script>
+<script src="../../assets/wow.js"></script>
 </body>
 </html>

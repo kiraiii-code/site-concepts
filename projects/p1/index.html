@@ -6,6 +6,7 @@
 <title>Flowly: доска задач для небольших команд (концепт)</title>
 <meta name="description" content="Концепт лендинга сервиса управления задачами: живая канбан-доска, тарифы, FAQ, форма регистрации.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/wow.css">
 <style>
 :root{--paper:#F4F6F9;--ink:#16181D;--blue:#2F5BEA;--sun:#FFD23F;--mint:#3DCB9A;--coral:#FF6B5B;--grey:#3E4450;--label:#5F6673;--line:#DCE1E8;--white:#fff}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -37,7 +38,8 @@ h1{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-.045em;font-we
 .cta-row{display:flex;gap:12px;flex-wrap:wrap}
 .note{font-size:14px;color:var(--grey);margin-top:16px}
 
-.board{background:var(--white);border-radius:20px;padding:16px;box-shadow:0 1px 0 var(--line),0 30px 60px -30px rgba(22,24,29,.35);position:relative}
+.stage3d{position:relative;perspective:1400px}
+.board{transform:rotateY(-10deg) rotateX(6deg);box-shadow:30px 40px 80px -40px rgba(22,24,29,.45);background:var(--white);border-radius:20px;padding:16px;box-shadow:0 1px 0 var(--line),0 30px 60px -30px rgba(22,24,29,.35);position:relative}
 .board-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 6px 14px;font-size:14px}
 .board-top b{font-size:15px}
 .progress{display:flex;align-items:center;gap:10px;color:var(--grey)}
@@ -58,6 +60,12 @@ h1{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-.045em;font-we
 .col[data-col="done"] .card .title{text-decoration:line-through;color:var(--grey)}
 .hint{position:absolute;left:-14px;bottom:-18px;background:var(--sun);font-size:13px;font-weight:600;padding:8px 14px;border-radius:10px;box-shadow:3px 3px 0 var(--ink);transition:opacity .3s}
 .hint.gone{opacity:0}
+.fchip{position:absolute;z-index:4;display:flex;gap:10px;align-items:center;background:var(--white);border-radius:14px;padding:10px 14px;font-size:13px;line-height:1.3;box-shadow:0 18px 40px -18px rgba(22,24,29,.45);animation:bob 5s ease-in-out infinite}
+.fchip b{display:block;font-size:14px}
+.fchip .av{width:30px;height:30px;font-size:11px}
+.fchip .dot{width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 6px rgba(61,203,154,.2)}
+.fchip.c1{right:-26px;top:-22px}.fchip.c2{left:-34px;bottom:46px;animation-delay:-2.5s}
+@keyframes bob{50%{margin-top:-10px}}
 .ghost{position:fixed;pointer-events:none;z-index:50;box-shadow:0 18px 30px -10px rgba(22,24,29,.35);margin:0}
 
 section{padding:88px 0}
@@ -80,6 +88,8 @@ h2{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.035em;line-height:1.05;marg
 .chart{display:flex;align-items:flex-end;gap:8px;height:170px;margin-top:32px}
 .chart i{flex:1;background:#2A2E37;border-radius:6px 6px 2px 2px;position:relative}
 .chart i.me{background:var(--sun)}
+.chart i{transform-origin:bottom;transform:scaleY(0);transition:transform 1s cubic-bezier(.2,.9,.2,1)}
+.f.big.in .chart i{transform:none}.f.big.in .chart i:nth-child(2){transition-delay:.1s}.f.big.in .chart i:nth-child(3){transition-delay:.2s}.f.big.in .chart i:nth-child(4){transition-delay:.3s}.f.big.in .chart i:nth-child(5){transition-delay:.4s}
 .chart i::after{content:attr(data-n);position:absolute;top:-22px;left:0;right:0;text-align:center;font-size:12px;color:#AEB4C0;font-style:normal}
 .chart-l{display:flex;gap:8px;margin-top:8px;font-size:12px;color:#8D94A1}.chart-l span{flex:1;text-align:center}
 .f .mini{display:flex;gap:6px;margin-top:20px;flex-wrap:wrap}
@@ -141,6 +151,7 @@ input[aria-invalid=true]{border-color:var(--coral)}
  .signup{padding:36px 24px}
 }
 @media (max-width:720px){
+ .fchip{display:none}.board{transform:none}
  .burger{display:block}
  .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--paper);flex-direction:column;align-items:stretch;gap:0;padding:8px 16px 20px;border-bottom:1px solid var(--line)}
  .menu.open{display:flex}.menu a{padding:12px 0;font-size:17px}
@@ -151,11 +162,10 @@ input[aria-invalid=true]{border-color:var(--coral)}
  section{padding:64px 0}
  .trust{gap:20px;font-size:16px}
 }
-.board{animation:rise .7s cubic-bezier(.2,.7,.2,1) both .1s}
+.board{animation:rise .9s cubic-bezier(.2,.7,.2,1) backwards .15s}
 .board .card{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
 .board .card:nth-child(2){animation-delay:.35s}.board .card:nth-child(3){animation-delay:.45s}.board .card:nth-child(4){animation-delay:.55s}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}}
-.plan,.f{transition:transform .2s}.plan:hover{transform:translateY(-2px)}
 .chip,.mini span{transition:background .2s}
 @media (prefers-reduced-motion:reduce){.board,.board .card{animation:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -176,12 +186,12 @@ input[aria-invalid=true]{border-color:var(--coral)}
 <main>
 <div class="wrap hero">
  <div>
-  <h1>Доска задач для студий и небольших команд</h1>
+  <h1 data-split>Доска задач для студий и небольших команд</h1>
   <p class="lead">Flowly показывает, кто чем занят и что мешает сдать проект в срок. Без таблиц, бесконечных чатов и утренних созвонов.</p>
-  <div class="cta-row"><a class="btn" href="#signup">Создать доску бесплатно</a><a class="btn line" href="#how">Как это работает</a></div>
+  <div class="cta-row"><a class="btn" data-mag href="#signup">Создать доску бесплатно</a><a class="btn line" data-mag href="#how">Как это работает</a></div>
   <p class="note">14 дней полного доступа, карта не нужна.</p>
  </div>
- <div class="board" aria-label="Пример доски задач">
+ <div class="stage3d"><div class="board" data-tilt="5" aria-label="Пример доски задач">
   <div class="board-top"><b>Запуск сайта, спринт 12</b><span class="progress"><span id="pct">0%</span><span class="meter"><i id="meter"></i></span></span></div>
   <div class="cols" id="cols">
    <div class="col" data-col="todo"><p class="ch">Нужно сделать <span></span></p></div>
@@ -190,40 +200,43 @@ input[aria-invalid=true]{border-color:var(--coral)}
   </div>
   <div class="hint" id="hint">Перетащите карточку</div>
  </div>
+ <div class="fchip c1" data-parallax="-.08"><span class="av" style="background:#11714F">МР</span><span><b>Задача закрыта</b>Настроить домен</span></div>
+ <div class="fchip c2" data-parallax=".1"><span class="dot"></span><span><b>3 человека онлайн</b>правят спринт 12</span></div>
+ </div>
 </div>
 
 <section id="how"><div class="wrap">
- <h2>Первая доска готова за пять минут</h2>
+ <h2 data-split>Первая доска готова за пять минут</h2>
  <p class="sub">Не нужно ничего настраивать заранее: начните с задач, которые уже висят в чатах.</p>
- <div class="steps">
-  <div class="step"><b>1</b><h3>Перенесите задачи</h3><p>Вставьте список из таблицы или перешлите письма боту. Flowly сам разложит их по карточкам.</p></div>
-  <div class="step"><b>2</b><h3>Позовите команду</h3><p>Отправьте ссылку. Коллеги заходят без регистрации и сразу видят свои задачи.</p></div>
-  <div class="step"><b>3</b><h3>Двигайте карточки</h3><p>Перетащили в «Готово», и заказчик сразу получил уведомление.</p></div>
+ <div class="steps" data-stagger>
+  <div class="step" data-reveal><b>1</b><h3>Перенесите задачи</h3><p>Вставьте список из таблицы или перешлите письма боту. Flowly сам разложит их по карточкам.</p></div>
+  <div class="step" data-reveal><b>2</b><h3>Позовите команду</h3><p>Отправьте ссылку. Коллеги заходят без регистрации и сразу видят свои задачи.</p></div>
+  <div class="step" data-reveal><b>3</b><h3>Двигайте карточки</h3><p>Перетащили в «Готово», и заказчик сразу получил уведомление.</p></div>
  </div>
 </div></section>
 
 <section id="features"><div class="wrap">
- <h2>Видно, где проект буксует</h2>
+ <h2 data-split>Видно, где проект буксует</h2>
  <p class="sub">Руководитель видит нагрузку, исполнитель видит свои задачи на сегодня.</p>
  <div class="feat">
-  <div class="f big">
+  <div class="f big" data-tilt="4" data-reveal>
    <div><h3>Нагрузка по людям</h3><p>Сразу видно, у кого 14 задач, а у кого две. Перекиньте работу одним движением, пока никто не выгорел.</p></div>
    <div><div class="chart" aria-hidden="true"><i style="height:45%" data-n="6"></i><i class="me" style="height:100%" data-n="14"></i><i style="height:60%" data-n="8"></i><i style="height:22%" data-n="3"></i><i style="height:52%" data-n="7"></i></div>
    <div class="chart-l"><span>Анна</span><span>Илья</span><span>Марк</span><span>Ольга</span><span>Тимур</span></div></div>
   </div>
-  <div class="f"><h3>Сроки без сюрпризов</h3><p>Карточка краснеет за два дня до дедлайна, а не в день сдачи.</p><div class="mini"><span>Напоминания</span><span>Календарь</span><span>Повторы</span></div></div>
-  <div class="f"><h3>Работает там, где вы</h3><p>Задачи приходят в Telegram и на почту, файлы подтягиваются из облака.</p><div class="mini"><span>Telegram</span><span>Почта</span><span>Облачный диск</span><span>1С</span></div></div>
+  <div class="f" data-tilt="6" data-reveal><h3>Сроки без сюрпризов</h3><p>Карточка краснеет за два дня до дедлайна, а не в день сдачи.</p><div class="mini"><span>Напоминания</span><span>Календарь</span><span>Повторы</span></div></div>
+  <div class="f" data-tilt="6" data-reveal><h3>Работает там, где вы</h3><p>Задачи приходят в Telegram и на почту, файлы подтягиваются из облака.</p><div class="mini"><span>Telegram</span><span>Почта</span><span>Облачный диск</span><span>1С</span></div></div>
  </div>
 </div></section>
 
 <section id="pricing"><div class="wrap">
- <h2>Платите за команду, а не за каждую кнопку</h2>
+ <h2 data-split>Платите за команду, а не за каждую кнопку</h2>
  <p class="sub">Все функции открыты на любом тарифе. Разница в размере команды и глубине истории.</p>
  <div class="toggle" role="group" aria-label="Период оплаты"><button type="button" aria-pressed="true" data-p="m">Помесячно</button><button type="button" aria-pressed="false" data-p="y">За год <em>−20%</em></button></div>
- <div class="plans">
-  <div class="plan"><h3>Старт</h3><p>Для фрилансера и пары коллег</p><div class="price" data-m="0" data-y="0">0 ₽</div><ul><li>До 3 участников</li><li>2 доски</li><li>История за 30 дней</li></ul><a class="btn line" href="#signup" data-plan="Старт">Начать бесплатно</a></div>
-  <div class="plan pop"><span class="badge">Выбирают чаще</span><h3>Команда</h3><p>Для студии или отдела</p><div class="price" data-m="490" data-y="392">490 ₽</div><ul><li>До 25 участников</li><li>Доски без ограничений</li><li>Отчёты по нагрузке</li><li>Telegram и почта</li></ul><a class="btn" href="#signup" data-plan="Команда">Выбрать «Команду»</a></div>
-  <div class="plan"><h3>Компания</h3><p>Для нескольких отделов</p><div class="price" data-m="890" data-y="712">890 ₽</div><ul><li>Участники без ограничений</li><li>Роли и права доступа</li><li>Интеграция с 1С</li><li>Персональный менеджер</li></ul><a class="btn line" href="#signup" data-plan="Компания">Выбрать «Компанию»</a></div>
+ <div class="plans" data-stagger>
+  <div class="plan" data-tilt="5" data-reveal><h3>Старт</h3><p>Для фрилансера и пары коллег</p><div class="price" data-m="0" data-y="0">0 ₽</div><ul><li>До 3 участников</li><li>2 доски</li><li>История за 30 дней</li></ul><a class="btn line" href="#signup" data-plan="Старт">Начать бесплатно</a></div>
+  <div class="plan pop" data-tilt="5" data-reveal><span class="badge">Выбирают чаще</span><h3>Команда</h3><p>Для студии или отдела</p><div class="price" data-m="490" data-y="392">490 ₽</div><ul><li>До 25 участников</li><li>Доски без ограничений</li><li>Отчёты по нагрузке</li><li>Telegram и почта</li></ul><a class="btn" href="#signup" data-plan="Команда">Выбрать «Команду»</a></div>
+  <div class="plan" data-tilt="5" data-reveal><h3>Компания</h3><p>Для нескольких отделов</p><div class="price" data-m="890" data-y="712">890 ₽</div><ul><li>Участники без ограничений</li><li>Роли и права доступа</li><li>Интеграция с 1С</li><li>Персональный менеджер</li></ul><a class="btn line" href="#signup" data-plan="Компания">Выбрать «Компанию»</a></div>
  </div>
 </div></section>
 
@@ -239,13 +252,13 @@ input[aria-invalid=true]{border-color:var(--coral)}
 
 <section id="signup" style="padding-top:0"><div class="wrap">
  <div class="signup" id="signupBox">
-  <div><h2>Соберите первую доску сегодня</h2><p class="sub">Пришлём ссылку на рабочее пространство. Тариф можно сменить в любой момент.</p></div>
+  <div><h2 data-split>Соберите первую доску сегодня</h2><p class="sub">Пришлём ссылку на рабочее пространство. Тариф можно сменить в любой момент.</p></div>
   <div>
    <form id="form" novalidate>
     <label>Имя<input name="name" autocomplete="given-name" required><span class="err" id="e-name"></span></label>
     <label>Рабочая почта<input name="email" type="email" autocomplete="email" required><span class="err" id="e-email"></span></label>
     <label>Тариф<select name="plan" id="plan"><option>Старт</option><option selected>Команда</option><option>Компания</option></select></label>
-    <button class="btn" type="submit">Создать доску</button>
+    <button class="btn" data-mag type="submit">Создать доску</button>
    </form>
    <div class="done" role="status" aria-live="polite"><b>Доска создана</b><span id="doneText">Это концепт: письмо не отправляется.</span></div>
   </div>
@@ -313,5 +326,7 @@ form.addEventListener('submit',e=>{e.preventDefault();
  document.getElementById('doneText').textContent=`${form.elements.name.value.trim()}, доска на тарифе «${form.elements.plan.value}» готова. Это концепт: письмо не отправляется.`;
  document.getElementById('signupBox').classList.add('sent')});
 </script>
+<div class="wow-progress" style="--wow-accent:#2F5BEA"></div>
+<script src="../../assets/wow.js"></script>
 </body>
 </html>
