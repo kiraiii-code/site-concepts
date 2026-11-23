@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Корица — меню</title>
+<meta name="description" content="Электронное меню кофейни по QR-коду: категории, поиск, фото блюд, список заказа.">
+<meta name="theme-color" content="#14282d">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+:root{--ink:#14282d;--muted:#5f6e70;--line:#e3e8e7;--mist:#eef2f1;--paper:#fff;--mustard:#e3b23c;--veg:#2f7a4f}
+*{box-sizing:border-box;margin:0}
+html{overflow-x:clip;scroll-padding-top:120px}
+body{font-family:Onest,system-ui,sans-serif;color:var(--ink);background:var(--mist);line-height:1.45;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);max-width:1100px;margin:0 auto}
+.info{display:none}
+main{min-width:0;background:var(--paper);min-height:100vh;max-width:560px;width:100%;margin:0 auto;padding-bottom:110px;box-shadow:0 0 0 1px var(--line)}
+
+.top{padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:800;font-size:28px;letter-spacing:-.04em;line-height:1}
+.brand small{display:block;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:4px}
+.table{background:var(--ink);color:#fff;border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;white-space:nowrap}
+.search{display:block;margin:6px 18px 0;position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:12px 14px 12px 42px;border-radius:14px;border:1.5px solid var(--line);background:var(--mist)}
+.search input:focus{outline:none;border-color:var(--ink);background:#fff}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted)}
+
+.tabs{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);display:flex;gap:6px;overflow-x:auto;padding:12px 18px;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.tabs a.on{background:var(--ink);color:#fff}
+
+section{padding:22px 18px 4px}
+h2{font-size:22px;letter-spacing:-.025em;margin-bottom:6px}
+.note{color:var(--muted);font-size:14px}
+.item{display:grid;grid-template-columns:88px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.item:last-child{border-bottom:0}
+.item.noimg{grid-template-columns:1fr}
+.ph{width:88px;height:88px;border-radius:16px;background:var(--mist) center/cover no-repeat;display:grid;place-items:center;font-weight:800;font-size:26px;color:#b9c5c4;border:0;padding:0}
+.it-body{min-width:0;display:grid;gap:4px}
+.it-name{font-weight:700;font-size:17px;line-height:1.2;text-align:left;background:none;border:0;padding:0}
+.it-desc{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.it-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+.price{font-weight:800;font-size:17px}
+.price small{font-weight:500;color:var(--muted);font-size:13px;margin-left:6px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:#fdf2d3;color:#7a5a05}
+.tag.veg{background:#e3f1e8;color:var(--veg)}
+.add{width:38px;height:38px;border-radius:12px;border:0;background:var(--mustard);font-size:22px;font-weight:700;line-height:1;display:grid;place-items:center;flex:none}
+.add:hover{background:#efc252}
+.qty{display:flex;align-items:center;gap:10px;font-weight:800}
+.qty button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:700}
+.item.out{opacity:.5}
+.out-lbl{font-size:13px;font-weight:700;color:var(--muted)}
+.empty{padding:40px 18px;color:var(--muted);text-align:center}
+
+.bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,140%);width:min(524px,calc(100% - 24px));background:var(--ink);color:#fff;border:0;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:16px;transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:10;box-shadow:0 18px 40px -16px rgba(20,40,45,.6)}
+.bar.show{transform:translate(-50%,0)}
+.bar span:last-child{color:var(--mustard)}
+
+dialog{border:0;padding:0;margin:auto auto 0;width:100%;max-width:560px;max-height:92vh;border-radius:24px 24px 0 0;background:#fff;color:var(--ink)}
+dialog::backdrop{background:rgba(15,30,33,.55)}
+dialog[open]{animation:up .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.sheet{padding:20px 20px calc(24px + env(safe-area-inset-bottom));display:grid;gap:14px}
+.sheet .big{width:100%;aspect-ratio:1.25;border-radius:18px;background:var(--mist) center/cover;margin-top:4px}
+.sheet h3{font-size:24px;letter-spacing:-.025em;line-height:1.15}
+.close{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font-size:22px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.nut{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;background:var(--mist);border-radius:14px;padding:12px 6px;font-size:13px;color:var(--muted)}
+.nut b{display:block;font-size:17px;color:var(--ink)}
+.allergen{font-size:14px;color:var(--muted)}
+.btn{border:0;border-radius:14px;padding:15px 18px;font-weight:800;font-size:16px;background:var(--mustard);color:var(--ink);width:100%}
+.btn.dark{background:var(--ink);color:#fff}
+.order-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:20px;padding-top:6px}
+.hint{font-size:14px;color:var(--muted);background:var(--mist);border-radius:12px;padding:12px 14px}
+
+@media (min-width:1000px){
+  .layout{grid-template-columns:340px minmax(0,560px);gap:40px;padding:0 24px}
+  main{margin:0}
+  .info{display:block;position:sticky;top:0;height:100vh;padding:48px 0}
+  .info .brand{font-size:56px}
+  .info dl{margin-top:36px;display:grid;gap:14px;font-size:15px}
+  .info dt{color:var(--muted);font-size:13px}
+  .info dd{font-weight:600}
+  .qr{margin-top:34px;display:flex;gap:16px;align-items:center;font-size:14px;color:var(--muted)}
+  .qr img{width:96px;height:96px;background:#fff;border-radius:12px;padding:8px;flex:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="info" aria-label="О кофейне">
+    <div class="brand">Корица<small>кофейня и пекарня</small></div>
+    <dl>
+      <div><dt>Часы работы</dt><dd>каждый день с 8:00 до 22:00</dd></div>
+      <div><dt>Wi-Fi</dt><dd>Korica_guest, пароль на чеке</dd></div>
+      <div><dt>Выпечка</dt><dd>печём с утра, к 11:00 круассаны часто заканчиваются</dd></div>
+    </dl>
+    <div class="qr"><img src="qr-table7.svg" alt=""><span>Так выглядит код на столе: гость наводит камеру и сразу открывает это меню</span></div>
+  </aside>
+
+  <main>
+    <div class="top">
+      <div class="brand">Корица<small>кофейня и пекарня</small></div>
+      <div class="table" id="table">Стол 7</div>
+    </div>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Найти: раф, сырники, без глютена" aria-label="Поиск по меню"></label>
+    <nav class="tabs" id="tabs" aria-label="Разделы меню"></nav>
+    <div id="menu"></div>
+  </main>
+</div>
+
+<button class="bar" id="bar" aria-live="polite"><span id="barCount">Мой заказ</span><span id="barSum">0 ₽</span></button>
+
+<dialog id="dish"><button class="close" data-close aria-label="Закрыть">×</button><div class="sheet" id="dishBody"></div></dialog>
+<dialog id="order"><button class="close" data-close aria-label="Закрыть">×</button><div class="sheet" id="orderBody"></div></dialog>
+
+<script>
+// Меню можно вести в Google Таблице: опубликовать лист как CSV и вписать ссылку сюда.
+// Колонки: cat,name,desc,price,size,img,tags,out,kcal,p,f,c,allergens
+const MENU_CSV_URL='';
+
+const DEMO=[
+ ['Кофе','Капучино','Двойной эспрессо и молоко 3,2%. Можно на овсяном или кокосовом.',220,'250 мл','cappuccino','',0,120,6,6,9,'молоко'],
+ ['Кофе','Раф с корицей','Сливки, эспрессо и сахар с корицей, взбитые вместе. Наш самый заказываемый.',290,'300 мл','raf','хит',0,260,5,16,24,'молоко'],
+ ['Кофе','Флэт уайт','Меньше молока, больше кофе, чем в капучино.',240,'200 мл','','',0,110,6,5,8,'молоко'],
+ ['Кофе','Американо','Эспрессо и горячая вода.',170,'250 мл','','',0,5,0,0,1,''],
+ ['Кофе','Эспрессо тоник','Эспрессо на тонике со льдом и долькой апельсина.',260,'300 мл','','',0,70,0,0,17,''],
+ ['Не кофе','Матча латте со льдом','Японский зелёный чай матча, молоко и лёд.',310,'350 мл','matcha','',0,150,6,5,19,'молоко'],
+ ['Не кофе','Какао на молоке','Настоящее какао, не порошок из пакетика.',230,'300 мл','','',0,210,8,8,26,'молоко'],
+ ['Не кофе','Облепиховый чай','Облепиха, апельсин, мёд и мята, чайник на двоих.',350,'600 мл','','',0,140,1,1,34,'мёд'],
+ ['Выпечка','Круассан','На сливочном масле 82%, слоим и печём сами.',190,'70 г','croissant','',0,290,6,17,29,'глютен, молоко, яйца'],
+ ['Выпечка','Синнабон с корицей','Мягкая булочка, корица и сливочный крем сверху.',240,'130 г','cinnamon','хит',0,420,7,18,57,'глютен, молоко, яйца'],
+ ['Выпечка','Круассан с миндалём','Миндальный крем внутри, лепестки миндаля сверху.',260,'100 г','','',1,410,9,25,37,'глютен, молоко, яйца, орехи'],
+ ['Выпечка','Хачапури по-аджарски мини','Сулугуни, моцарелла и желток.',330,'180 г','','',0,470,19,24,43,'глютен, молоко, яйца'],
+ ['Завтраки','Сырники','Из фермерского творога, со сметаной и ягодным соусом.',380,'220 г','syrniki','',0,450,24,19,43,'глютен, молоко, яйца'],
+ ['Завтраки','Шакшука','Яйца в томатах с перцем и зирой, к ней хлеб на закваске.',420,'320 г','shakshuka','вег',0,380,18,22,24,'яйца, глютен'],
+ ['Завтраки','Овсянка на кокосовом молоке','С бананом, арахисовой пастой и семенами чиа.',320,'300 г','','вег',0,410,10,18,52,'орехи'],
+ ['Завтраки','Скрэмбл с лососем','Сливочный скрэмбл, слабосолёный лосось, тост.',560,'250 г','','',0,520,30,34,22,'яйца, рыба, молоко, глютен'],
+ ['Десерты','Чизкейк Нью-Йорк','Классический, с соусом из лесных ягод.',340,'130 г','cheesecake','',0,390,7,26,31,'молоко, яйца, глютен'],
+ ['Десерты','Морковный торт','С грецким орехом и сливочным сыром.',320,'140 г','','',0,430,6,24,48,'глютен, молоко, яйца, орехи'],
+ ['Десерты','Шоколадное печенье','Тёмный шоколад и морская соль.',120,'60 г','','',0,280,3,14,36,'глютен, молоко, яйца']
+];
+
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let items=[],cart={};
+
+const table=new URLSearchParams(location.search).get('table');
+if(table&&/^\d{1,3}$/.test(table))$('#table').textContent='Стол '+table;
+
+function fromRows(rows){
+  return rows.map((r,i)=>({id:i,cat:r[0],name:r[1],desc:r[2]||'',price:+r[3]||0,size:r[4]||'',img:r[5]||'',tags:r[6]?String(r[6]).split(/\s*,\s*/):[],out:+r[7]===1,kcal:r[8],p:r[9],f:r[10],c:r[11],al:r[12]||''}));
+}
+function parseCSV(t){ // простой разбор CSV из Google Таблиц, поддерживает кавычки
+  const rows=[];let row=[],cell='',q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch=='"'&&t[i+1]=='"'){cell+='"';i++}else if(ch=='"')q=false;else cell+=ch}
+    else if(ch=='"')q=true;else if(ch==','){row.push(cell);cell=''}
+    else if(ch=='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(ch!='\r')cell+=ch}
+  if(cell||row.length){row.push(cell);rows.push(row)}
+  return rows.slice(1).filter(r=>r[1]);
+}
+// Картинка: имя файла из папки img или полная https-ссылка; кавычки и скобки отсекаем, чтобы не сломать style
+const imgUrl=it=>{const v=String(it.img).trim();if(!v||/["'()\\\s]/.test(v))return'';return /^https:\/\//.test(v)?v:'img/'+v+'.jpg'};
+
+function render(){
+  const q=$('#q').value.trim().toLowerCase();
+  const noGluten=/без глютен/.test(q);
+  const list=items.filter(it=>!q||(noGluten?!it.al.includes('глютен'):(it.name+' '+it.desc+' '+it.tags.join(' ')).toLowerCase().includes(q)));
+  const cats=[...new Set(items.map(i=>i.cat))];
+  $('#tabs').innerHTML=cats.map((c,i)=>`<a href="#c${i}">${esc(c)}</a>`).join('');
+  $('#menu').innerHTML=cats.map((c,ci)=>{
+    const its=list.filter(i=>i.cat===c);if(!its.length)return'';
+    return `<section id="c${ci}" data-cat="${ci}"><h2>${esc(c)}</h2>${its.map(itemHTML).join('')}</section>`;
+  }).join('')||`<p class="empty">По запросу «${esc(q)}» ничего нет. Попробуйте другое слово или очистите поиск.</p>`;
+  spy();
+}
+function itemHTML(it){
+  const u=imgUrl(it),n=cart[it.id]||0;
+  return `<div class="item${it.out?' out':''}${u?'':' noimg'}" data-id="${it.id}">
+    ${u?`<button class="ph" data-open style="background-image:url('${u}')" aria-label="Подробнее: ${esc(it.name)}"></button>`:''}
+    <div class="it-body">
+      <button class="it-name" data-open>${esc(it.name)}</button>
+      <div class="it-desc">${esc(it.desc)}</div>
+      ${it.tags.length?`<div class="tags">${it.tags.map(t=>`<span class="tag${t==='вег'?' veg':''}">${esc(t)}</span>`).join('')}</div>`:''}
+      <div class="it-row"><span class="price">${fmt(it.price)}<small>${esc(it.size)}</small></span>
+      ${it.out?'<span class="out-lbl">закончилось</span>':n?qtyHTML(n):`<button class="add" data-add aria-label="Добавить: ${esc(it.name)}">+</button>`}</div>
+    </div></div>`;
+}
+const qtyHTML=n=>`<span class="qty"><button data-dec aria-label="Убрать одну">−</button>${n}<button data-add aria-label="Добавить ещё">+</button></span>`;
+
+function change(id,d){
+  cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];
+  document.querySelectorAll(`.item[data-id="${id}"]`).forEach(el=>el.outerHTML=itemHTML(items[id]));
+  updateBar();if($('#order').open)orderView();
+}
+const plural=n=>n%10===1&&n%100!==11?'позиция':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20))?'позиции':'позиций';
+function updateBar(){
+  const n=Object.values(cart).reduce((a,b)=>a+b,0),s=Object.entries(cart).reduce((a,[id,k])=>a+items[id].price*k,0);
+  $('#barCount').textContent=`Мой заказ: ${n} ${plural(n)}`;
+  $('#barSum').textContent=fmt(s);$('#bar').classList.toggle('show',n>0);
+}
+function dishView(it){
+  const u=imgUrl(it),n=cart[it.id]||0;
+  $('#dishBody').innerHTML=`${u?`<div class="big" style="background-image:url('${u}')"></div>`:''}
+  <h3>${esc(it.name)}</h3><div class="note">${esc(it.size)}</div><p>${esc(it.desc)}</p>
+  ${it.kcal?`<div class="nut"><div><b>${esc(it.kcal)}</b>ккал</div><div><b>${esc(it.p)}</b>белки</div><div><b>${esc(it.f)}</b>жиры</div><div><b>${esc(it.c)}</b>углеводы</div></div>`:''}
+  ${it.al?`<div class="allergen">Содержит: ${esc(it.al)}</div>`:''}
+  ${it.out?'<button class="btn" disabled>Закончилось на сегодня</button>':`<button class="btn" data-sheet-add="${it.id}">${n?'Добавить ещё, уже '+n:'Добавить в заказ'}, ${fmt(it.price)}</button>`}`;
+}
+function orderView(){
+  const rows=Object.entries(cart);
+  if(!rows.length){$('#order').close();return}
+  const s=rows.reduce((a,[id,k])=>a+items[id].price*k,0);
+  $('#orderBody').innerHTML=`<h3>Мой заказ</h3>
+  <div>${rows.map(([id,k])=>`<div class="order-row" data-id="${id}"><span>${esc(items[id].name)}</span>${qtyHTML(k)}<b>${fmt(items[id].price*k)}</b></div>`).join('')}</div>
+  <div class="total"><span>Итого</span><span>${fmt(s)}</span></div>
+  <p class="hint">Покажите этот экран официанту, ${esc($('#table').textContent.toLowerCase())}.</p>
+  <button class="btn dark" data-close>Вернуться в меню</button>`;
+}
+
+document.addEventListener('click',e=>{
+  const t=e.target;
+  if(t.closest('[data-close]')){t.closest('dialog').close();return}
+  const sa=t.closest('[data-sheet-add]');if(sa){change(+sa.dataset.sheetAdd,1);dishView(items[+sa.dataset.sheetAdd]);return}
+  const row=t.closest('[data-id]');if(!row)return;const id=+row.dataset.id;
+  if(t.closest('[data-add]'))change(id,1);
+  else if(t.closest('[data-dec]'))change(id,-1);
+  else if(t.closest('[data-open]')){dishView(items[id]);$('#dish').showModal()}
+});
+$('#bar').addEventListener('click',()=>{orderView();$('#order').showModal()});
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
+$('#q').addEventListener('input',render);
+
+// Подсветка текущего раздела при прокрутке
+let io;
+function spy(){
+  io?.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){
+    document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#c'+en.target.dataset.cat));
+    const on=document.querySelector('.tabs a.on');if(on){const tb=$('#tabs');tb.scrollTo({left:on.offsetLeft-tb.clientWidth/2+on.clientWidth/2,behavior:'smooth'})}
+  }}),{rootMargin:'-130px 0px -65% 0px'});
+  document.querySelectorAll('section[data-cat]').forEach(s=>io.observe(s));
+  document.querySelector('.tabs a')?.classList.add('on');
+}
+
+(async()=>{
+  let rows=DEMO;
+  if(MENU_CSV_URL){try{rows=parseCSV(await (await fetch(MENU_CSV_URL)).text())}catch(e){console.warn('Таблица меню недоступна, показано встроенное меню',e)}}
+  items=fromRows(rows);render();
+})();
+</script>
+</body>
+</html>

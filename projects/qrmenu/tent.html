@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Корица — тейбл-тент для печати</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+@page{size:A6;margin:0}
+*{box-sizing:border-box;margin:0}
+body{font-family:Onest,system-ui,sans-serif;background:#d9e0df;color:#14282d;display:flex;gap:40px;justify-content:center;align-items:center;min-height:100vh;padding:40px;flex-wrap:wrap}
+.card{width:105mm;height:148mm;background:#fff;border-radius:6mm;padding:12mm 10mm;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 30px 60px -30px rgba(20,40,45,.5)}
+.card.dark{background:#14282d;color:#fff}
+.brand{font-weight:800;font-size:15mm;letter-spacing:-.04em;line-height:1}
+.sub{font-size:4mm;color:#5f6e70;margin-top:2mm}
+.dark .sub{color:#a9b9ba}
+.qr{margin:9mm 0 6mm;background:#fff;padding:4mm;border-radius:4mm;border:1.2mm solid #e3b23c}
+.qr img{display:block;width:52mm;height:52mm}
+.call{font-weight:800;font-size:6.4mm;line-height:1.15}
+.hint{font-size:3.8mm;color:#5f6e70;margin-top:2mm}
+.dark .hint{color:#a9b9ba}
+.table{margin-top:auto;font-weight:800;font-size:5mm;background:#e3b23c;color:#14282d;border-radius:99px;padding:2mm 6mm}
+.wifi{margin-top:auto;font-size:4mm;line-height:1.5}
+.wifi b{font-size:5mm}
+@media print{body{background:none;padding:0;gap:0;display:block}.card{box-shadow:none;border-radius:0;page-break-after:always}}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">Корица</div>
+    <div class="sub">кофейня и пекарня</div>
+    <div class="qr"><img src="qr-table7.svg" alt="QR-код меню для стола 7"></div>
+    <div class="call">Наведите камеру, откроется меню</div>
+    <div class="hint">с фото, ценами и составом</div>
+    <div class="table">Стол 7</div>
+  </div>
+  <div class="card dark">
+    <div class="brand">Корица</div>
+    <div class="sub">кофейня и пекарня</div>
+    <div class="qr"><img src="qr-table7.svg" alt=""></div>
+    <div class="call">Меню в телефоне</div>
+    <div class="hint">выберите блюда и покажите список официанту</div>
+    <div class="wifi">Wi-Fi <b>Korica_guest</b><br>пароль на чеке</div>
+  </div>
+</body>
+</html>
