@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Посёлок «Заречье» — выбор участка на генплане</title>
+<meta name="description" content="Интерактивный генплан коттеджного посёлка: свободные участки, площадь, цена, бронь просмотра.">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+:root{
+  --ground:#dfe6d8; --forest:#22402d; --ink:#1d2a22; --muted:#5d6b61;
+  --free:#f8faf4; --free-line:#3f7a4f; --hold:#e6b640; --sold:#a9b3aa;
+  --water:#a7c9d8; --road:#f3f1ea; --pick:#c2462e;
+}
+*{box-sizing:border-box;margin:0}
+html{overflow-x:clip}
+body{font-family:Onest,system-ui,sans-serif;background:var(--ground);color:var(--ink);line-height:1.5;font-size:16px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pick);outline-offset:2px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px clamp(16px,4vw,48px)}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.logo small{display:block;font-weight:500;font-size:13px;color:var(--muted);letter-spacing:0}
+header nav{display:flex;gap:22px;font-size:15px}
+header nav a{text-decoration:none;color:var(--muted)}
+header nav a:hover{color:var(--ink)}
+.tel{font-weight:700;text-decoration:none;white-space:nowrap}
+
+.intro{padding:8px clamp(16px,4vw,48px) 20px;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 40px}
+h1{font-size:clamp(30px,4.6vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:800;max-width:15ch}
+.intro p{max-width:42ch;color:var(--muted)}
+
+.app{display:grid;grid-template-columns:minmax(0,1fr) 360px;margin:0 clamp(0px,2vw,24px);background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(20,50,30,.55)}
+.mapwrap{position:relative;background:#cfdcc6}
+svg.plan{display:block;width:100%;height:auto;touch-action:manipulation}
+.plot{cursor:pointer;transition:fill .2s,opacity .2s,stroke-width .15s}
+.plot.free{fill:var(--free);stroke:var(--free-line)}
+.plot.hold{fill:var(--hold);stroke:#a07a12}
+.plot.sold{fill:var(--sold);stroke:#7d877e;cursor:default}
+.plot.dim{opacity:.22}
+.plot:hover,.plot:focus{stroke-width:3}
+.plot.on{fill:var(--pick);stroke:#7d2414;stroke-width:3}
+.num{font-size:11px;font-weight:700;fill:var(--forest);pointer-events:none}
+.num.light{fill:#fff}
+.lbl{font-size:13px;font-weight:600;fill:#2c4a37;pointer-events:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:13px;padding:7px 10px;border-radius:8px;transform:translate(-50%,-120%);white-space:nowrap;opacity:0;transition:opacity .12s}
+.legend{position:absolute;left:14px;bottom:14px;display:flex;gap:14px;background:rgba(255,255,255,.88);padding:8px 12px;border-radius:10px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1px solid rgba(0,0,0,.25)}
+
+aside{padding:24px;border-left:1px solid #e3e8df;display:flex;flex-direction:column;gap:22px}
+.count{font-size:15px;color:var(--muted)}
+.count b{font-size:34px;color:var(--ink);letter-spacing:-.03em;margin-right:4px}
+fieldset{border:0;padding:0;display:grid;gap:10px}
+legend{font-weight:700;font-size:15px;margin-bottom:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips label{display:flex;align-items:center;gap:6px;border:1.5px solid #cfd8cb;border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer;user-select:none}
+.chips input{accent-color:var(--forest)}
+.chips label:has(input:checked){border-color:var(--forest);background:#eef3ea}
+.range{display:grid;gap:4px;font-size:14px}
+.range output{font-weight:700}
+input[type=range]{width:100%;accent-color:var(--forest)}
+
+.card{border-radius:16px;background:#f3f6f0;padding:18px;display:grid;gap:12px}
+.card.empty{color:var(--muted);font-size:15px}
+.card h2{font-size:24px;letter-spacing:-.02em;line-height:1.1}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.card dt{color:var(--muted)}
+.card dd{font-weight:600;text-align:right}
+.price{font-size:28px;font-weight:800;letter-spacing:-.03em}
+.status{display:inline-block;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#dcebd9;color:#245a33}
+.status.hold{background:#f6e7b9;color:#7a5a05}
+.status.sold{background:#e1e4e1;color:#555}
+.btn{appearance:none;border:0;background:var(--forest);color:#fff;font:inherit;font-weight:700;padding:13px 18px;border-radius:12px;cursor:pointer;text-align:center;text-decoration:none}
+.btn:hover{background:#163021}
+
+section{padding:72px clamp(16px,4vw,48px)}
+h2.sec{font-size:clamp(26px,3.2vw,40px);letter-spacing:-.03em;line-height:1.08;margin-bottom:28px;max-width:20ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;border-top:2px solid var(--forest);padding-top:14px}
+.steps li::before{content:counter(s);font-weight:800;font-size:15px;color:var(--forest);display:block;margin-bottom:6px}
+.steps b{display:block;margin-bottom:4px;font-size:17px}
+.steps p{color:var(--muted);font-size:15px}
+.facts{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+.facts ul{list-style:none;padding:0;display:grid;gap:14px}
+.facts li{display:grid;grid-template-columns:150px 1fr;gap:16px;border-bottom:1px solid #c8d3c2;padding-bottom:12px}
+.facts li span{color:var(--muted)}
+
+#book{background:var(--forest);color:#eef3ea}
+#book .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+#book p{color:#b9cbbc;max-width:40ch}
+form{display:grid;gap:12px}
+form label{display:grid;gap:4px;font-size:14px;color:#cfdccf}
+form input,form select{font:inherit;padding:12px 14px;border-radius:10px;border:1.5px solid #47664f;background:#2b4b36;color:#fff}
+form .btn{background:#f2c84b;color:var(--ink)}
+form .btn:hover{background:#ffd862}
+.done{font-size:18px;font-weight:600;color:#fff}
+footer{padding:28px clamp(16px,4vw,48px);font-size:14px;color:var(--muted)}
+
+@media (max-width:980px){
+  .app{grid-template-columns:1fr;border-radius:0;margin:0}
+  aside{border-left:0;border-top:1px solid #e3e8df}
+  .steps{grid-template-columns:1fr 1fr}
+  .facts,#book .wrap{grid-template-columns:1fr}
+  header nav{display:none}
+}
+@media (max-width:560px){
+  .steps{grid-template-columns:1fr}
+  .facts li{grid-template-columns:1fr;gap:2px}
+  .legend{font-size:12px;gap:8px;left:8px;bottom:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#">Заречье<small>посёлок у реки Нерль, 46 км от МКАД</small></a>
+  <nav><a href="#plan">Генплан</a><a href="#how">Как купить</a><a href="#about">О посёлке</a><a href="#book">Просмотр</a></nav>
+  <a class="tel" href="#book">Записаться на просмотр</a>
+</header>
+
+<div class="intro">
+  <h1>Выберите участок прямо на плане</h1>
+  <p>Нажмите на участок, чтобы увидеть площадь, цену и подведённые коммуникации. Зелёная обводка — свободен, жёлтый — в брони.</p>
+</div>
+
+<div class="app" id="plan">
+  <div class="mapwrap">
+    <svg class="plan" id="svg" viewBox="0 0 1000 640" role="group" aria-label="Генплан посёлка"></svg>
+    <div class="tip" id="tip"></div>
+    <div class="legend" aria-hidden="true"><span><i style="background:var(--free);border-color:var(--free-line)"></i>свободен</span><span><i style="background:var(--hold)"></i>бронь</span><span><i style="background:var(--sold)"></i>продан</span></div>
+  </div>
+  <aside>
+    <div class="count" aria-live="polite"><b id="cnt">0</b><span id="cntTxt">участков подходит</span></div>
+    <fieldset>
+      <legend>Статус</legend>
+      <div class="chips">
+        <label><input type="checkbox" value="free" checked> свободные</label>
+        <label><input type="checkbox" value="hold" checked> в брони</label>
+        <label><input type="checkbox" value="sold"> проданные</label>
+      </div>
+    </fieldset>
+    <div class="range"><label for="area">Площадь от <output id="areaOut">6</output> соток</label><input id="area" type="range" min="6" max="16" step="1" value="6"></div>
+    <div class="range"><label for="price">Цена до <output id="priceOut"></output></label><input id="price" type="range" min="1200000" max="4200000" step="100000" value="4200000"></div>
+    <div class="card empty" id="card">Участок не выбран. Нажмите на любой участок на плане.</div>
+  </aside>
+</div>
+
+<section id="how">
+  <h2 class="sec">Как купить участок</h2>
+  <ol class="steps">
+    <li><b>Выбор на плане</b><p>Отметьте участок и оставьте заявку — менеджер перезвонит в течение рабочего дня.</p></li>
+    <li><b>Просмотр</b><p>Покажем границы на местности, колышки и точку подключения электричества.</p></li>
+    <li><b>Бронь на 14 дней</b><p>Участок снимается с продажи, пока вы проверяете документы.</p></li>
+    <li><b>Сделка</b><p>Договор купли-продажи, регистрация через МФЦ, можно в ипотеку.</p></li>
+  </ol>
+</section>
+
+<section id="about">
+  <div class="facts">
+    <h2 class="sec">Земля ИЖС, свет по границе участка, дорога до каждого дома</h2>
+    <ul>
+      <li><span>Категория</span>земли населённых пунктов, ИЖС</li>
+      <li><span>Электричество</span>15 кВт на участок, включено в цену</li>
+      <li><span>Газ</span>магистраль вдоль восточной улицы, подключение по заявке</li>
+      <li><span>Дороги</span>асфальтовая крошка, чистка снега круглый год</li>
+      <li><span>Рядом</span>река в 200 м, сосновый лес с северной стороны, школа в Ильинском — 6 км</li>
+    </ul>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <div>
+      <h2 class="sec">Покажем участок на месте</h2>
+      <p>Выезды по субботам и воскресеньям. Если выбрали участок на плане, его номер уже подставлен в форму.</p>
+    </div>
+    <form id="form">
+      <label>Участок<select id="fPlot"><option value="">Пока не выбрал</option></select></label>
+      <label>Имя<input required name="name" autocomplete="given-name"></label>
+      <label>Телефон<input required name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+      <button class="btn" type="submit">Записаться на просмотр</button>
+    </form>
+  </div>
+</section>
+
+<footer>Демо-проект: посёлок, участки и цены придуманы для примера интерактивного генплана.</footer>
+
+<script>
+// Детерминированный генератор, чтобы план был одинаковым при каждой загрузке
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('svg');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// Подложка: лес, река, дороги
+el('rect',{x:0,y:0,width:1000,height:640,fill:'#cfdcc6'});
+const forest=el('g',{fill:'#9fbf98',opacity:.9});
+for(let i=0;i<120;i++){el('circle',{cx:rnd()*1000,cy:rnd()*70,r:10+rnd()*16},forest)}
+el('path',{d:'M-10 585 C 180 545, 330 620, 520 590 S 820 555, 1010 600 L1010 650 L-10 650Z',fill:'var(--water)'});
+el('text',{x:760,y:622,class:'lbl'}).textContent='река Нерль';
+el('text',{x:24,y:40,class:'lbl'}).textContent='сосновый лес';
+const road={fill:'none',stroke:'var(--road)','stroke-linecap':'round'};
+el('path',{...road,d:'M0 300 H1000','stroke-width':26});
+el('path',{...road,d:'M500 70 V560','stroke-width':20});
+el('path',{...road,d:'M60 185 H940 M60 415 H940','stroke-width':14});
+el('text',{x:12,y:292,class:'lbl'}).textContent='въезд';
+el('rect',{x:430,y:526,width:140,height:40,rx:8,fill:'#b9d3ae'});
+el('text',{x:500,y:551,class:'lbl','text-anchor':'middle'}).textContent='сквер';
+
+// Участки: 4 ряда по обе стороны центральной улицы
+const plots=[];let n=1;
+const rows=[[90,92],[198,92],[318,88],[428,92]];
+for(const [y,h] of rows){
+  for(const side of [[70,480],[520,930]]){
+    let x=side[0];
+    while(side[1]-x>=45){
+      let w=62+Math.round(rnd()*30);
+      if(side[1]-x-w<45)w=side[1]-x; // последний участок в ряду забирает остаток
+      const area=Math.round(w*h/600);
+      const nearRiver=y===428, nearForest=y===90;
+      const rate=(nearRiver?245:nearForest?225:190)*1000;
+      const r=rnd();
+      plots.push({n:n++,x,y,w:w-6,h:h-6,area,price:Math.round(area*rate/10000)*10000,
+        status:r<.5?'free':r<.68?'hold':'sold',
+        gas:x>500, view:nearRiver?'к реке':nearForest?'к лесу':'на улицу'});
+      x+=w;
+    }
+  }
+}
+const g=el('g',{});
+const fmt=v=>v.toLocaleString('ru-RU')+' ₽';
+for(const p of plots){
+  p.r=el('rect',{x:p.x,y:p.y,width:p.w,height:p.h,rx:4,class:'plot '+p.status,tabindex:p.status==='sold'?-1:0,role:'button',
+    'aria-label':`Участок ${p.n}, ${p.area} соток, ${p.status==='sold'?'продан':fmt(p.price)}`},g);
+  p.t=el('text',{x:p.x+p.w/2,y:p.y+p.h/2+4,'text-anchor':'middle',class:'num'+(p.status==='sold'?' light':'')},g);
+  p.t.textContent=p.n;
+}
+
+const tip=document.getElementById('tip'),wrap=document.querySelector('.mapwrap');
+const statusTxt={free:'свободен',hold:'в брони',sold:'продан'};
+let picked=null;
+function show(p){
+  const c=document.getElementById('card');c.className='card';
+  c.innerHTML=`<div><span class="status ${p.status}">${statusTxt[p.status]}</span></div>
+  <h2>Участок № ${p.n}</h2>
+  <div class="price">${fmt(p.price)}</div>
+  <dl><dt>Площадь</dt><dd>${p.area} соток</dd><dt>Вид</dt><dd>${p.view}</dd>
+  <dt>Свет</dt><dd>15 кВт</dd><dt>Газ</dt><dd>${p.gas?'по границе':'в 2027 году'}</dd>
+  <dt>За сотку</dt><dd>${fmt(Math.round(p.price/p.area/1000)*1000)}</dd></dl>
+  <a class="btn" href="#book">${p.status==='free'?'Записаться на просмотр':'Встать в очередь'}</a>`;
+  document.getElementById('fPlot').value=p.n;
+}
+function pick(p){
+  if(p.status==='sold')return;
+  picked?.r.classList.remove('on');picked?.t.classList.remove('light');
+  picked=p;p.r.classList.add('on');p.t.classList.add('light');show(p);
+}
+for(const p of plots){
+  p.r.addEventListener('click',()=>pick(p));
+  p.r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(p)}});
+  p.r.addEventListener('pointerenter',()=>{
+    const b=wrap.getBoundingClientRect(),s=svg.getBoundingClientRect(),k=s.width/1000;
+    tip.textContent=`№ ${p.n}, ${p.area} сот., ${p.status==='sold'?'продан':fmt(p.price)}`;
+    tip.style.left=(s.left-b.left+(p.x+p.w/2)*k)+'px';tip.style.top=(s.top-b.top+p.y*k)+'px';tip.style.opacity=1;
+  });
+  p.r.addEventListener('pointerleave',()=>tip.style.opacity=0);
+}
+
+// Фильтры
+const area=document.getElementById('area'),price=document.getElementById('price');
+const boxes=[...document.querySelectorAll('.chips input')];
+const plural=k=>k%10===1&&k%100!==11?'участок подходит':(k%10>=2&&k%10<=4&&(k%100<10||k%100>=20))?'участка подходят':'участков подходит';
+function filter(){
+  const st=boxes.filter(b=>b.checked).map(b=>b.value);
+  document.getElementById('areaOut').textContent=area.value;
+  document.getElementById('priceOut').textContent=(+price.value/1e6).toLocaleString('ru-RU')+' млн ₽';
+  let k=0;
+  for(const p of plots){
+    const ok=st.includes(p.status)&&p.area>=+area.value&&(p.status==='sold'||p.price<=+price.value);
+    p.r.classList.toggle('dim',!ok);p.t.style.opacity=ok?1:.3;if(ok&&p.status!=='sold')k++;
+  }
+  document.getElementById('cnt').textContent=k;document.getElementById('cntTxt').textContent=plural(k);
+}
+[area,price,...boxes].forEach(i=>i.addEventListener('input',filter));filter();
+
+// Форма: без отправки на сервер, это демо
+const sel=document.getElementById('fPlot');
+for(const p of plots)if(p.status!=='sold')sel.add(new Option(`№ ${p.n}, ${p.area} сот.`,p.n));
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=sel.value;
+  e.target.outerHTML=`<p class="done">Заявка принята${v?` на участок № ${v}`:''}. Перезвоним, чтобы договориться о времени просмотра.</p>`;
+});
+</script>
+</body>
+</html>
