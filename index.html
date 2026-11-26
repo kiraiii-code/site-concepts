@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Концепты сайтов — портфолио</title>
-<meta name="description" content="Пять концептов сайтов: лендинг сервиса, интернет-магазин, панель аналитики, студия красоты и WOW-главная стоматологии.">
+<meta name="description" content="Одиннадцать работ: лендинги, интернет-магазин, панель аналитики, генплан посёлка, шахматка ЖК, сайт и QR-меню кофейни, карточки для маркетплейсов и логотип.">
 <meta name="theme-color" content="#0C0E1A">
 <meta property="og:title" content="Концепты сайтов">
 <meta property="og:description" content="Дизайн, вёрстка и интерактив на чистом HTML, CSS и JavaScript.">
 <meta property="og:image" content="projects/p1/cover.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23FF5A36'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
 :root{--bg:#0C0E1A;--bg2:#141729;--ink:#F3EFE7;--mute:#A6A9BE;--hot:#FF5A36;--cool:#7C9CFF;--line:rgba(243,239,231,.12)}
@@ -35,16 +36,17 @@ header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;heig
 header nav a:hover::after{transform:scaleX(1);transform-origin:left}
 
 /* HERO */
-.hero{position:relative;height:100svh;min-height:640px;display:grid;align-items:end;overflow:hidden}
-#orb{position:absolute;inset:0;width:100%;height:100%}
-.hero .wrap{position:relative;padding-bottom:9vh;pointer-events:none}
-.hero h1{font-size:clamp(54px,11.5vw,188px);line-height:.86;letter-spacing:-.065em;font-weight:800;margin:0;pointer-events:auto}
+.hero{position:relative;min-height:100svh;padding-top:110px;display:grid;align-items:end;overflow:hidden;isolation:isolate}
+.hero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to top,var(--bg) 0%,rgba(12,14,26,.82) 32%,rgba(12,14,26,0) 62%)}
+#orb{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero .wrap{position:relative;z-index:1;padding-bottom:9vh;pointer-events:none}
+.hero h1{font-size:clamp(46px,9.6vw,160px);line-height:.96;letter-spacing:-.045em;text-shadow:0 4px 40px rgba(12,14,26,.6);font-weight:800;margin:0;pointer-events:auto}
 .hero h1 .w{display:inline-block;white-space:nowrap}
 .hero h1 .l{display:inline-block;transition:transform .5s cubic-bezier(.2,1.6,.4,1),color .3s;transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.9,.2,1) forwards}
 .hero h1 .l:hover{transform:translateY(-.12em) rotate(-6deg);color:var(--hot)}
 @keyframes rise{to{transform:none}}
 .hero .row{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-top:34px;flex-wrap:wrap;pointer-events:auto}
-.hero p{max-width:440px;color:var(--mute);margin:0;opacity:0;animation:fade .8s 1s forwards}
+.hero p{max-width:480px;color:var(--mute);margin:0;opacity:0;animation:fade .8s 1s forwards}
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .btns{display:flex;gap:12px;opacity:0;animation:fade .8s 1.15s forwards}
 
@@ -56,7 +58,7 @@ header nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .mag span{display:block;transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
 .mag.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
 .mag.line::before{background:var(--ink)}.mag.line:hover{color:var(--bg)}
-.scroll{position:absolute;right:16px;top:50%;writing-mode:vertical-rl;font-size:12px;letter-spacing:.3em;color:var(--mute);animation:bob 2.4s ease-in-out infinite}
+.scroll{position:absolute;z-index:1;right:16px;top:50%;writing-mode:vertical-rl;font-size:12px;letter-spacing:.3em;color:var(--mute);animation:bob 2.4s ease-in-out infinite}
 @keyframes bob{50%{translate:0 10px}}
 
 /* бегущая строка */
@@ -68,16 +70,17 @@ header nav a:hover::after{transform:scaleX(1);transform-origin:left}
 
 /* 3D-кольцо */
 section{padding:120px 0}
-.h2{font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.055em;margin:0 0 16px;font-weight:800}
+.h2{font-size:clamp(38px,6vw,96px);line-height:1.02;letter-spacing:-.045em;text-wrap:balance;margin:0 0 16px;font-weight:800}
 .sub{color:var(--mute);max-width:520px;margin:0}
-.ring-wrap{position:relative;height:min(78vh,720px);perspective:1600px;margin-top:40px;cursor:grab;touch-action:pan-y;user-select:none}
+.ring-wrap{position:relative;height:min(78vh,720px);perspective:1800px;perspective-origin:50% 40%;margin-top:40px;cursor:grab;touch-action:pan-y;user-select:none}
 .ring-wrap:active{cursor:grabbing}
 .ring{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
-.card3{position:absolute;width:var(--cw);height:calc(var(--cw)*1.18);left:calc(var(--cw)/-2);top:calc(var(--cw)*-.59);border-radius:22px;overflow:hidden;background:var(--bg2);box-shadow:0 30px 80px -30px rgba(0,0,0,.8);transform-style:preserve-3d;transition:opacity .2s}
-.card3 img{width:100%;height:78%;object-fit:cover;object-position:top}
-.card3 div{padding:14px 18px}
-.card3 b{display:block;font-size:19px;letter-spacing:-.02em}
-.card3 small{color:var(--mute);font-size:14px}
+.card3{position:absolute;width:var(--cw);height:calc(var(--cw)*1.22);left:calc(var(--cw)/-2);top:calc(var(--cw)*-.61);border-radius:22px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.85);display:flex;flex-direction:column;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:opacity .25s}
+.card3 img{flex:1;min-height:0;width:100%;object-fit:cover;object-position:top}
+.card3 div{flex:none;padding:14px 18px 16px;border-top:1px solid var(--line)}
+.card3 b{display:block;font-size:19px;line-height:1.2;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card3 small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--mute);font-size:14px;line-height:1.35;margin-top:4px}
+.ring-wrap::before{content:"";position:absolute;left:50%;top:calc(50% + var(--floor,240px));width:min(1100px,120%);height:160px;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,90,54,.28),rgba(124,156,255,.08) 60%,transparent);filter:blur(10px);pointer-events:none}
 .card3::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:250% 100%;background-position:var(--gx,100%) 0;pointer-events:none}
 .ring-hint{position:absolute;left:50%;bottom:0;translate:-50% 0;font-size:14px;color:var(--mute);display:flex;gap:10px;align-items:center}
 .ring-hint i{width:36px;height:2px;background:var(--hot);animation:swipe 1.8s ease-in-out infinite}
@@ -85,17 +88,17 @@ section{padding:120px 0}
 
 /* список работ */
 .list{margin-top:56px;border-top:1px solid var(--line)}
-.item{position:relative;display:grid;grid-template-columns:70px 1fr auto;gap:24px;align-items:center;padding:34px 0;border-bottom:1px solid var(--line);transition:padding .4s}
+.item{position:relative;display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:24px;align-items:center;padding:34px 0;border-bottom:1px solid var(--line);transition:padding .4s}
 .item .n{color:var(--mute);font-size:15px}
-.item h3{margin:0;font-size:clamp(30px,4.4vw,64px);letter-spacing:-.045em;line-height:1;font-weight:800;transition:transform .5s cubic-bezier(.2,1,.3,1),color .3s}
-.item p{margin:6px 0 0;color:var(--mute);font-size:16px;max-width:560px}
+.item h3{margin:0;font-size:clamp(28px,4.2vw,60px);letter-spacing:-.035em;line-height:1.05;overflow-wrap:anywhere;font-weight:800;transition:transform .5s cubic-bezier(.2,1,.3,1),color .3s}
+.item p{margin:8px 0 0;color:var(--mute);font-size:16px;line-height:1.45;max-width:560px}
 .item .go{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,transform .4s,box-shadow .3s;font-size:22px}
 .item:hover h3{transform:translateX(18px);color:var(--hot)}
 .item:hover .go{background:var(--hot);box-shadow:none;transform:rotate(-45deg)}
-.float{position:fixed;left:0;top:0;width:340px;aspect-ratio:1;border-radius:20px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;scale:.6;rotate:-8deg;transition:opacity .3s,scale .4s cubic-bezier(.2,1.4,.4,1),rotate .4s;box-shadow:0 40px 90px -20px rgba(0,0,0,.8)}
+.float{position:fixed;left:0;top:0;width:280px;aspect-ratio:1;border-radius:20px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;scale:.6;rotate:-8deg;transition:opacity .3s,scale .4s cubic-bezier(.2,1.4,.4,1),rotate .4s;box-shadow:0 40px 90px -20px rgba(0,0,0,.8)}
 .float.on{opacity:1;scale:1;rotate:0deg}
 .float img{width:100%;height:100%;object-fit:cover;object-position:top}
-@media(hover:none){.float{display:none}}
+@media(hover:none),(max-width:1100px){.float{display:none}}
 
 /* навыки с наклоном */
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
@@ -103,13 +106,13 @@ section{padding:120px 0}
 .tile::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(255,90,54,.22),transparent 45%);opacity:0;transition:opacity .3s}
 .tile:hover::before{opacity:1}
 .tile .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;transform:translateZ(40px);background:var(--bg);border:1px solid var(--line)}
-.tile h3{margin:0 0 6px;font-size:22px;letter-spacing:-.02em;transform:translateZ(30px)}
-.tile p{margin:0;color:var(--mute);font-size:15px;transform:translateZ(20px)}
+.tile h3{margin:24px 0 8px;font-size:22px;line-height:1.2;letter-spacing:-.02em;transform:translateZ(30px)}
+.tile p{margin:0;color:var(--mute);font-size:15px;line-height:1.5;transform:translateZ(20px)}
 .ico svg{width:28px;height:28px;stroke:var(--hot);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* финал */
 .end{text-align:center;padding:160px 0 120px;position:relative;overflow:hidden}
-.end .h2{font-size:clamp(48px,9vw,150px)}
+.end .h2{font-size:clamp(44px,8.4vw,140px)}
 .end .mag{margin-top:40px;padding:26px 44px;font-size:19px}
 .blob{position:absolute;left:50%;top:50%;width:60vmin;height:60vmin;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--hot),#B2264A 45%,transparent 70%);filter:blur(60px);opacity:.35;animation:morph 12s ease-in-out infinite;z-index:-1}
 @keyframes morph{33%{border-radius:40% 60% 55% 45%;scale:1.15}66%{border-radius:60% 40% 45% 55%;scale:.9}}
@@ -118,9 +121,10 @@ footer{padding:32px 0;border-top:1px solid var(--line);color:var(--mute);font-si
 .rv{opacity:0;transform:translateY(50px);transition:opacity 1s,transform 1.1s cubic-bezier(.2,.9,.2,1)}
 .rv.in{opacity:1;transform:none}
 
+@media(max-width:1200px){.scroll{display:none}}
+@media(max-width:1100px){.tiles{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
  header nav a:not(:last-child){display:none}
- .tiles{grid-template-columns:1fr 1fr}
  .item{grid-template-columns:44px 1fr auto;gap:14px}
  .item .go{width:48px;height:48px}
  .scroll{display:none}
@@ -130,6 +134,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);color:var(--mute);font-si
  .btns{width:100%}.btns .mag{flex:1}
  section{padding:80px 0}
  .ring-wrap{height:520px}
+ .card3 div{padding:12px 14px 14px}.card3 b{font-size:17px}.card3 small{-webkit-line-clamp:3;font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 .l{transform:none}.hero p,.btns{opacity:1}.rv{opacity:1;transform:none}}
 </style>
@@ -148,7 +153,7 @@ footer{padding:32px 0;border-top:1px solid var(--line);color:var(--mute);font-si
  <div class="wrap">
   <h1 id="title" aria-label="Сайты, которые хочется листать">Сайты, которые хочется листать</h1>
   <div class="row">
-   <p>Пять концептов: лендинг, магазин, панель аналитики, сайт студии и WOW-главная. Дизайн, вёрстка и интерактив на чистом HTML, CSS и JavaScript.</p>
+   <p>Одиннадцать работ: лендинги, магазин, аналитика, генплан, шахматка ЖК, сайт кофейни, карточки для маркетплейсов и логотип. Всё открывается живой страницей.</p>
    <div class="btns"><a class="mag" href="#ring"><span>Смотреть работы</span></a><a class="mag line" href="#contact"><span>Обсудить проект</span></a></div>
   </div>
  </div>
@@ -202,7 +207,11 @@ const works=[
  {t:'Studio Rosa',d:'Сайт студии красоты с онлайн-записью в четыре шага',u:'projects/p4/index.html',img:'projects/p4/cover.jpg'},
  {t:'Эмаль',d:'WOW-главная стоматологии: 3D-зуб и сюжет на прокрутке',u:'projects/dental/',img:'projects/dental/cover.jpg'},
  {t:'Заречье',d:'Интерактивный генплан посёлка: выбор участка, фильтры, заявка',u:'projects/genplan/',img:'projects/genplan/cover.jpg'},
- {t:'Корица',d:'QR-меню кофейни: фото, поиск, заказ со стола, тейбл-тент',u:'projects/qrmenu/',img:'projects/qrmenu/cover.jpg'}];
+ {t:'Тихая гавань',d:'Шахматка квартир ЖК: фильтры, карточка квартиры, заявка',u:'projects/shahmatka/',img:'projects/shahmatka/cover.jpg'},
+ {t:'Корица, сайт',d:'Одностраничный сайт кофейни: меню, зал и как добраться',u:'projects/coffee/korica/',img:'projects/coffee/korica/cover.jpg'},
+ {t:'Корица, QR-меню',d:'QR-меню кофейни: фото, поиск, заказ со стола, тейбл-тент',u:'projects/qrmenu/',img:'projects/qrmenu/cover.jpg'},
+ {t:'Карточки WB и Ozon',d:'Инфографика для карточек товара на маркетплейсах',u:'projects/cards/',img:'projects/cards/cover.jpg'},
+ {t:'Пристань',d:'Логотип проката лодок: знак, цвета, варианты на носителях',u:'projects/logo/',img:'projects/logo/cover.jpg'}];
 
 // Заголовок по буквам: каждая подпрыгивает при наведении
 const title=document.getElementById('title');let k=0;
@@ -235,8 +244,8 @@ document.querySelectorAll('.mag').forEach(b=>{if(reduce||!fine)return;const s=b.
 
 // 3D-кольцо карточек: тянется мышью/пальцем, по инерции, само медленно крутится
 const ringEl=document.getElementById('ringEl'),rw=document.getElementById('rw');
-const cw=Math.min(360,innerWidth*.62);ringEl.style.setProperty('--cw',cw+'px');
-const radius=Math.round(cw/2/Math.tan(Math.PI/works.length))+60;
+const cw=Math.round(Math.min(340,innerWidth*.64));ringEl.style.setProperty('--cw',cw+'px');rw.style.setProperty('--floor',Math.round(cw*.7)+'px');
+const radius=Math.round(cw/2/Math.tan(Math.PI/works.length))+70;
 works.forEach((w,i)=>{const a=document.createElement('a');a.className='card3';a.href=w.u;a.dataset.i=i;a.style.setProperty('--cw',cw+'px');
  a.innerHTML=`<img src="${w.img}" alt="Концепт ${w.t}" loading="lazy" width="800" height="800"><div><b>${w.t}</b><small>${w.d}</small></div>`;ringEl.append(a)});
 const cards=[...ringEl.children];let rot=0,vel=reduce?0:-.12,drag=false,lastX=0,moved=0;
@@ -246,17 +255,17 @@ rw.addEventListener('pointerup',()=>drag=false);rw.addEventListener('pointercanc
 rw.addEventListener('click',e=>{if(moved>6)e.preventDefault()},true);
 (function spin(){if(!drag){vel*=.95;if(Math.abs(vel)<.12&&!reduce)vel=vel<0?-.12:.12;rot+=vel}
  cards.forEach((c,i)=>{const ang=rot+i*360/cards.length,rad=ang*Math.PI/180,front=Math.cos(rad);
-  c.style.transform=`rotateY(${ang}deg) translateZ(${radius}px) rotateY(${0}deg)`;c.style.opacity=front>0?.45+.55*front:.18;c.style.pointerEvents=front>0?'auto':'none';c.style.setProperty('--gx',(50+Math.sin(rad)*60)+'%');c.style.zIndex=Math.round(front*100)});
+  c.style.transform=`rotateY(${ang}deg) translateZ(${radius}px)`;const vis=front>.4;c.style.opacity=vis?Math.min(1,(front-.4)/.45):0;c.style.visibility=vis?'visible':'hidden';c.style.pointerEvents=front>.6?'auto':'none';c.style.setProperty('--gx',(50+Math.sin(rad)*60)+'%');c.style.zIndex=Math.round(front*100)});
  ringEl.style.transform=`translateZ(-${radius}px) rotateX(-6deg)`;requestAnimationFrame(spin)})();
 
 // Список работ с картинкой, летящей за курсором
 const list=document.getElementById('list'),fl=document.getElementById('float'),fi=document.getElementById('floatImg');
-list.innerHTML=works.map((w,i)=>`<a class="item" href="${w.u}" data-img="${w.img}"><span class="n">0${i+1}</span><div><h3>${w.t}</h3><p>${w.d}</p></div><span class="go" aria-hidden="true">↗</span></a>`).join('');
+list.innerHTML=works.map((w,i)=>`<a class="item" href="${w.u}" data-img="${w.img}"><span class="n">${String(i+1).padStart(2,'0')}</span><div><h3>${w.t}</h3><p>${w.d}</p></div><span class="go" aria-hidden="true">↗</span></a>`).join('');
 let fx=0,fy=0,fpx=0,fpy=0;
 list.addEventListener('pointerover',e=>{const it=e.target.closest('.item');if(!it)return;fi.src=it.dataset.img;fl.classList.add('on')});
 list.addEventListener('pointerleave',()=>fl.classList.remove('on'));
 addEventListener('pointermove',e=>{fx=e.clientX;fy=e.clientY});
-(function follow(){fpx+=(fx-fpx)*.12;fpy+=(fy-fpy)*.12;fl.style.transform=`translate(${fpx+30}px,${fpy-170}px)`;requestAnimationFrame(follow)})();
+(function follow(){fpx+=(fx-fpx)*.12;fpy+=(fy-fpy)*.12;fl.style.transform=`translate(${innerWidth-410}px,${fpy-140}px)`;requestAnimationFrame(follow)})();
 
 // Плитки наклоняются в 3D за курсором
 document.querySelectorAll('.tile').forEach(t=>{t.addEventListener('pointermove',e=>{if(reduce)return;const r=t.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
