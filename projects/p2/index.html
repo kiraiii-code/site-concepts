@@ -95,8 +95,8 @@ footer nav{display:flex;gap:22px}footer a:hover{color:var(--ink)}
 .cart-list img{width:64px;height:64px;border-radius:10px;object-fit:cover}.cart-list small{display:block;color:var(--muted)}
 .cart-list .empty{display:block;color:var(--muted);text-align:center;padding:56px 0;border:0}
 .qty{display:flex;align-items:center;gap:10px;margin-top:6px}
-.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font:inherit}.qty button:hover{background:var(--ink);color:#fff}
-.rm{border:0;background:none;cursor:pointer;color:var(--muted);font:400 13px Onest,sans-serif;text-decoration:underline;padding:4px 0}
+.qty button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font:inherit}.qty button:hover{background:var(--ink);color:#fff}
+.rm{border:0;background:none;cursor:pointer;color:var(--muted);font:400 13px Onest,sans-serif;text-decoration:underline;padding:4px 0;min-height:44px}
 .d-foot{padding:18px 22px 22px;border-top:1px solid var(--line)}
 .sum{display:flex;justify-content:space-between;font-size:20px;font-weight:600}
 .ship{font-size:14px;color:var(--muted);margin:4px 0 12px}
@@ -118,7 +118,8 @@ input[aria-invalid=true]{border-color:var(--sale)}
 .ok b{display:block;font:600 26px Lora,serif;margin-bottom:6px}
 .ok p{color:var(--muted)}
 
-dialog{border:0;padding:0;border-radius:24px;width:min(860px,100% - 24px);background:var(--card);color:var(--ink);overflow:hidden}
+dialog{border:0;padding:0;border-radius:24px;width:min(860px,100% - 24px);background:var(--card);color:var(--ink);overflow:auto;max-height:calc(100dvh - 24px)}
+[id]{scroll-margin-top:80px}
 dialog::backdrop{background:rgba(30,42,43,.5)}
 .pd{display:grid;grid-template-columns:1fr 1fr}
 .pd img{width:100%;height:100%;object-fit:cover;aspect-ratio:1}
@@ -131,7 +132,9 @@ dialog::backdrop{background:rgba(30,42,43,.5)}
 
 @media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:800px){
- nav.menu{display:none}
+ header .bar{flex-wrap:wrap}
+ nav.menu{display:flex;order:3;width:100%;overflow-x:auto;gap:20px;padding:6px 0 4px}
+ nav.menu a{padding:8px 0;white-space:nowrap}
  .hero,.story,.subscribe,.pd{grid-template-columns:1fr}
  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
  .perks{grid-template-columns:1fr}.perks div{padding:18px 0;border-bottom:1px solid var(--line)}
@@ -309,7 +312,7 @@ renderCart();
 
 // Подписка
 $('sub').addEventListener('submit',e=>{e.preventDefault();const v=e.target.email.value.trim(),ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
- e.target.email.setAttribute('aria-invalid',!ok);$('subMsg').textContent=ok?'Готово. Это концепт: письма не придут.':'Проверьте адрес почты';if(ok)e.target.reset()});
+ e.target.email.setAttribute('aria-invalid',!ok);$('subMsg').style.color=ok?'':'var(--sale)';$('subMsg').textContent=ok?'Готово. Это концепт: письма не придут.':'Проверьте адрес почты';if(ok)e.target.reset()});
 </script>
 <div class="wow-progress" style="--wow-accent:#2F5D50"></div>
 <script src="../../assets/wow.js"></script>

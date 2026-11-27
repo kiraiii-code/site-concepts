@@ -100,7 +100,9 @@ footer{padding:28px clamp(16px,4vw,48px);font-size:14px;color:var(--muted)}
   aside{border-left:0;border-top:1px solid #e3e8df}
   .steps{grid-template-columns:1fr 1fr}
   .facts,#book .wrap{grid-template-columns:1fr}
-  header nav{display:none}
+  header{flex-wrap:wrap}
+  header nav{order:3;width:100%;overflow-x:auto;gap:18px}
+  header nav a{padding:10px 0;white-space:nowrap}
 }
 @media (max-width:560px){
   .steps{grid-template-columns:1fr}
@@ -253,6 +255,7 @@ function pick(p){
   if(p.status==='sold')return;
   picked?.r.classList.remove('on');picked?.t.classList.remove('light');
   picked=p;p.r.classList.add('on');p.t.classList.add('light');show(p);
+  if(innerWidth<=980&&window.event?.isTrusted)document.getElementById('card').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 for(const p of plots){
   p.r.addEventListener('click',()=>pick(p));

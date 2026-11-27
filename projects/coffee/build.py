@@ -61,7 +61,7 @@ CAFES = [
        gallery=("milk", "glass", "latte"), extra="steps"),
   dict(slug="kofeterii", name="КОфеТерий", city="Ярославль", street="", district="Ярославль",
        hours=[("Каждый день", "11:00–21:00")], wa="79807463965",
-       vars="--bg:#fbf4e8;--surface:#f2e3c9;--ink:#2a1d14;--muted:#73604f;--line:#e2cfae;--accent:#c06a1b;--on-accent:#fff;--r:14px;--display:Lora,Georgia,serif;--text:Onest,system-ui,sans-serif",
+       vars="--bg:#fbf4e8;--surface:#f2e3c9;--ink:#2a1d14;--muted:#73604f;--line:#e2cfae;--accent:#985010;--on-accent:#fff;--r:14px;--display:Lora,Georgia,serif;--text:Onest,system-ui,sans-serif",
        hero="art", h1="Котокафе «КОфеТерий» в Ярославле",
        lead="Кофе, десерты и кошки, которые сами решают, к кому подойти. Каждый день с 11 до 21.",
        fact="Каждый день 11:00–21:00",
@@ -106,7 +106,7 @@ CAFES = [
   # Вымышленная кофейня для портфолио (та же «Корица», что в QR-меню)
   dict(slug="korica", fictional=True, name="Корица", city="Тверь", street="", district="Тверь, центр",
        hours=[("Пн–Пт", "8:00–21:00"), ("Сб–Вс", "9:00–22:00")], wa="",
-       vars="--bg:#faf3ea;--surface:#f0e2cf;--ink:#2a1a10;--muted:#76604d;--line:#e3cfb6;--accent:#b5541c;--on-accent:#fff;--r:4px;--display:Cormorant,Georgia,serif;--text:Onest,system-ui,sans-serif",
+       vars="--bg:#faf3ea;--surface:#f0e2cf;--ink:#2a1a10;--muted:#76604d;--line:#e3cfb6;--accent:#9c4515;--on-accent:#fff;--r:4px;--display:Cormorant,Georgia,serif;--text:Onest,system-ui,sans-serif",
        hero="hand", h1="Кофейня «Корица»: кофе и выпечка с корицей",
        lead="Синнабоны из своей печи к открытию и кофе на хорошем зерне. Предзаказ — до выхода из дома.",
        fact="Синнабоны из печи к 8:00",
@@ -130,7 +130,16 @@ def page(c):
     hrs = "".join(f"<dt>{e(d)}</dt><dd>{e(t)}</dd>" for d, t in c["hours"])
     where = c["street"] or c["district"]
     # у вымышленной кофейни карта искала бы чужое заведение с тем же названием
-    dirs = "#visit" if c.get("fictional") else maps(c["city"], c["street"] or c["name"])
+    fict = c.get("fictional")
+    dirs = "#visit" if fict else maps(c["city"], c["street"] or c["name"])
+    # без WhatsApp ссылки «Написать» вели бы по кругу на #order
+    head_btn = f'<a class="btn ghost" href="{wa}">Написать</a>' if c["wa"] else '<a class="btn ghost" href="#menu">Меню</a>'
+    hero_2 = '<a class="btn ghost" href="#visit">Адрес и часы</a>' if fict else f'<a class="btn ghost" href="{dirs}">Как добраться</a>'
+    visit_acts = (("" if fict else f'<a class="btn" href="{dirs}">Как добраться</a>')
+                  + (f'<a class="btn ghost" href="{wa}">Написать в WhatsApp</a>' if c["wa"] else '<a class="btn" href="#order">Как сделать предзаказ</a>'))
+    close_btn = f'<a class="btn" href="{wa}">Написать в WhatsApp</a>' if c["wa"] else '<a class="btn" href="#menu">Посмотреть меню</a>'
+    bar = ((f'<a class="btn" href="{dirs}">Маршрут</a>' if not fict else '<a class="btn" href="#visit">Адрес</a>')
+           + (f'<a class="btn ghost" href="{wa}">Написать</a>' if c["wa"] else '<a class="btn ghost" href="#menu">Меню</a>'))
     menu = "".join(
         f'<div class="menu-col"><h3>{e(t)}</h3><ul>' + "".join(f"<li><span>{e(n)}</span><span>{e(p)}</span></li>" for n, p in items) + "</ul></div>"
         for t, items in c["menu"])
@@ -157,7 +166,7 @@ def page(c):
 <header class="top"><div class="wrap">
   <a class="logo" href="#main">{e(c['name'])}</a>
   <nav class="menu" aria-label="Разделы"><a href="#visit">Адрес и часы</a><a href="#menu">Меню</a><a href="#order">{'Правила' if c['extra']=='rules' else 'Предзаказ'}</a></nav>
-  <a class="btn ghost" href="{wa}">Написать</a>
+  {head_btn}
 </div></header>
 <main id="main">
 <section class="hero">
@@ -166,7 +175,7 @@ def page(c):
     <span class="fact">{e(c['fact'])}</span>
     <h1>{e(c['h1'])}</h1>
     <p class="lead">{e(c['lead'])}</p>
-    <div class="acts"><a class="btn" href="#menu">Посмотреть меню</a><a class="btn ghost" href="{dirs}">Как добраться</a></div>
+    <div class="acts"><a class="btn" href="#menu">Посмотреть меню</a>{hero_2}</div>
   </div>
 </section>
 <section class="s" id="visit"><div class="wrap visit">
@@ -174,7 +183,7 @@ def page(c):
     <h2>Адрес и часы работы</h2>
     <p class="sub">{e(where)}. Заходите выпить на месте или возьмите с собой.</p>
     <dl>{hrs}<dt>Где</dt><dd>{e(where)}</dd></dl>
-    <div class="acts"><a class="btn" href="{dirs}">Как добраться</a><a class="btn ghost" href="{wa}">Написать в WhatsApp</a></div>
+    <div class="acts">{visit_acts}</div>
   </div>
   <div class="frame">{img(g[0])}</div>
 </div></section>
@@ -196,14 +205,14 @@ def page(c):
 </div></section>
 <section class="close"><div class="wrap">
   <h2>Заходите на кофе в «{e(c['name'])}»</h2>
-  <a class="btn" href="{wa}">Написать в WhatsApp</a>
+  {close_btn}
 </div></section>
 </main>
 <footer><div class="wrap">
   <span>Демо-концепт. Фотографии — иллюстрации, не из этой кофейни. __CREDITS__</span>
   <span>Сделано как пример сайта для кофейни. Если вы владелец и хотите такой сайт — напишите.</span>
 </div></footer>
-<div class="bar"><a class="btn" href="{dirs}">Маршрут</a><a class="btn ghost" href="{wa}">Написать</a></div>
+<div class="bar">{bar}</div>
 </body>
 </html>
 """

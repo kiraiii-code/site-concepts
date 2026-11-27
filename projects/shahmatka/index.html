@@ -35,7 +35,7 @@ h1{font-size:clamp(30px,4.6vw,58px);line-height:1.02;letter-spacing:-.035em;font
 .tabs button[aria-pressed=true]{border-color:var(--brand);background:var(--brand);color:#fff}
 .grid{display:grid;grid-template-columns:44px repeat(var(--cols),minmax(52px,1fr));gap:5px;min-width:440px}
 .fl{font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-variant-numeric:tabular-nums}
-.ap{appearance:none;font:inherit;border:1.5px solid transparent;border-radius:7px;height:42px;padding:0 4px;display:grid;place-items:center;line-height:1.05;font-size:12px;cursor:pointer;transition:transform .12s,opacity .2s,box-shadow .15s}
+.ap{appearance:none;font:inherit;border:1.5px solid transparent;border-radius:7px;height:44px;padding:0 4px;display:grid;place-items:center;line-height:1.05;font-size:12px;cursor:pointer;transition:transform .12s,opacity .2s,box-shadow .15s}
 .ap b{font-size:14px}
 .ap.free{background:var(--free-bg);border-color:#9fcdb6;color:#1f5a40}
 .ap.hold{background:var(--hold-bg);border-color:#ebc675;color:#7a5506}
@@ -96,7 +96,9 @@ footer{padding:28px clamp(16px,4vw,48px);font-size:14px;color:var(--muted)}
   aside{border-left:0;border-top:1px solid var(--line)}
   .steps{grid-template-columns:1fr 1fr}
   #book .wrap{grid-template-columns:1fr}
-  header nav{display:none}
+  header{flex-wrap:wrap}
+  header nav{order:3;width:100%;overflow-x:auto;gap:18px}
+  header nav a{padding:10px 0;white-space:nowrap}
 }
 @media (max-width:560px){.steps{grid-template-columns:1fr}.board{padding:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -235,6 +237,7 @@ function pick(a){
   <dt>Окна</dt><dd>${a.view}</dd><dt>За метр</dt><dd>${fmt(Math.round(a.price/a.area/100)*100)}</dd></dl>
   <a class="btn" href="#book">${a.status==='free'?'Записаться на просмотр':'Встать в очередь'}</a>`;
   document.getElementById('fAp').value=a.b+'-'+a.num;
+  if(innerWidth<=980&&window.event?.isTrusted)document.getElementById('card').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 const floor=document.getElementById('floor'),price=document.getElementById('price');
